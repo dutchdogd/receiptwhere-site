@@ -1,0 +1,109 @@
+/* ReceiptWhere: navy #12233D, deep amber #A35F00 ("Where" and links on light
+   backgrounds), paper #F5F7FA. The mark's pin keeps its own brighter amber. */
+:root {
+  --navy: #12233D;
+  --amber: #A35F00;
+  --paper: #F5F7FA;
+  --rule: #D8DEE8;
+  --muted: #4A5568;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--navy);
+  font-family: "Sora", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+a { color: var(--amber); text-underline-offset: 2px; }
+a:hover, a:focus-visible { color: var(--navy); }
+
+.where { color: var(--amber); }
+
+/* ── holding page ─────────────────────────────────────────────────────────── */
+.holding {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 16px 2rem;
+}
+.holding .mark { width: 112px; height: 112px; }
+.holding h1 {
+  margin: 1.25rem 0 0.25rem;
+  font-size: clamp(2rem, 7vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.holding .tagline { margin: 0; font-size: 1.15rem; font-weight: 600; }
+.holding .beta { margin: 1rem 0 0; color: var(--muted); }
+.holding .contact { margin: 0.25rem 0 0; }
+.holding footer { margin-top: 3rem; font-size: 0.9rem; }
+.holding footer a + a { margin-left: 1.25rem; }
+
+/* ── legal pages ──────────────────────────────────────────────────────────── */
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 1.25rem 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--navy);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+.site-header nav a { margin-left: 1rem; font-weight: 600; }
+.site-header nav a[aria-current="page"] { color: var(--navy); text-decoration: none; }
+
+.legal {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 1.5rem 16px 2rem;
+}
+.legal h1 { font-size: 1.75rem; line-height: 1.25; margin: 0.5rem 0 0.75rem; }
+.legal h2 { font-size: 1.2rem; margin: 2rem 0 0.5rem; }
+.legal p, .legal li { overflow-wrap: anywhere; }
+.legal ul { padding-left: 1.25rem; }
+.legal li + li { margin-top: 0.35rem; }
+
+.table-wrap { overflow-x: auto; margin: 1rem 0; }
+table { border-collapse: collapse; width: 100%; background: #fff; }
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--rule);
+}
+th { background: var(--navy); color: var(--paper); font-weight: 600; }
+
+/* Phone width: the columns wrap instead of scrolling sideways. */
+@media (max-width: 480px) {
+  th, td { padding: 0.5rem; font-size: 0.875rem; overflow-wrap: break-word; }
+}
+
+.site-footer {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 1.5rem 16px 3rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.9rem;
+}
+.site-footer a + a { margin-left: 1.25rem; }
