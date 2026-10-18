@@ -1,6 +1,6 @@
 # ReceiptWhere Terms of Service
 
-*Effective October 15, 2026. ReceiptWhere is provided by DuoNex AI LLC, a Washington limited liability company ("DuoNex", "we", "us").*
+*Effective October 18, 2026. ReceiptWhere is provided by DuoNex AI LLC, a Washington limited liability company ("DuoNex", "we", "us").*
 
 ## 1. The service
 
@@ -19,6 +19,7 @@ ReceiptWhere is currently in **beta**. Features may change, and the service may 
 - **You keep ownership** of everything you upload or forward. You give us permission to store, process and display it only to provide the service to you.
 - Only submit documents you are entitled to keep and use, such as your own receipts or your business's records.
 - Your personal inbound address is for forwarding your own financial documents. Do not use it to receive other people's mail or unrelated email.
+- Forwarding currently allows up to 10 documents per email and 20 MB per file. Logos, signatures and files we cannot read are skipped, and mail our email provider flags as spam is not read. Forwarded documents count toward your plan's limits, like uploads.
 
 ## 4. Automated reading and your responsibility
 
@@ -43,7 +44,7 @@ We may suspend accounts that break these terms or put the service or other users
 
 ## 7. Ending your account
 
-You can delete your account at any time in the app. Deletion removes your documents and data from our live systems immediately and from our backups within 30 days, as described in the Privacy Policy. We may end the service, or an account that breaks these terms, with reasonable notice where possible.
+You can delete your account at any time in the app. Deletion removes your documents and data from our live systems immediately and from our backups within 30 days, as described in the Privacy Policy. If you delete your account, its inbound address stops working and is never given to anyone else. We may end the service, or an account that breaks these terms, with reasonable notice where possible.
 
 ## 8. Disclaimers and liability
 
@@ -63,17 +64,19 @@ Questions: receipt@receiptwhere.com, DuoNex AI LLC, 2508 SW 144th Pl, Burien, WA
 
 # ReceiptWhere Privacy Policy
 
-*Effective October 15, 2026. This policy explains how DuoNex AI LLC ("DuoNex", "we") handles your information in ReceiptWhere. We do not sell your data and we do not use it for advertising.*
+*Effective October 18, 2026. This policy explains how DuoNex AI LLC ("DuoNex", "we") handles your information in ReceiptWhere. We do not sell your data and we do not use it for advertising.*
 
 ## 1. What we collect
 
 | Category | Examples |
 |---|---|
-| Account | Email address; the account identifier Google or Apple gives us if you sign in with them; time zone; home country; plan |
-| Your documents | Photos, PDFs and forwarded emails you send us, including the email's sender, subject, body and attachments |
-| Details read from documents | Merchant, total, currency, date, purchase or refund, payment method and the last four digits of a card when printed |
+| Account | Email address; the account identifier Google or Apple gives us if you sign in with them; time zone; home country; plan; your personal inbound address |
+| Your documents | Photos and PDFs you upload, and emails you forward: the email's sender, subject and date, its attachments that are documents, and its text when the email itself is the receipt |
+| Details read from documents | Merchant, total, currency, date, purchase or refund, payment method and the last four digits of a card when printed. When an email names no merchant, we may suggest one from the sender's address for you to confirm. |
 | Your confirmations | Corrections and confirmations you make in the app, with the date and time |
-| Technical | Sign-in records (sign-in links and sessions, stored in hashed form), error logs, and per-document processing cost records |
+| Technical | Sign-in records (sign-in links and sessions, stored in hashed form), delivery records for forwarded email (in hashed form), error and request logs (which include IP addresses), and per-document processing cost records |
+
+Attachments we do not read, such as logos, signatures, unsupported files and files over 20 MB, are not kept: we note only their name and size. Mail sent to an address that belongs to no account is not kept. Mail our email provider flags as spam is not read. We keep only its sender, subject and date, for 7 days.
 
 We do not ask for, and you should not upload, full card numbers, passwords or government ID numbers. Card numbers printed on receipts are almost always masked by the merchant.
 
@@ -101,7 +104,8 @@ Our AI provider processes documents under commercial terms that do not permit it
 ## 4. How long we keep it
 
 - While your account is open, we keep your documents and details. On the Free plan, documents older than six months are archived, not deleted, and become visible again if you upgrade.
-- **When you delete your account,** we remove your documents, details, confirmations and inbound address from our live systems immediately and from backups within 30 days. If another account uploaded an identical file, that copy stays with that account only. Cost records are kept without any link to you or your documents. We keep a one-way fingerprint of a deleted account and its inbound address, so that the address is never given to anyone else and the deletion is re-applied if a backup is ever restored.
+- Delivery records for forwarded email are deleted after 48 hours, and used or expired sign-in links after 24 hours.
+- **When you delete your account,** we remove your documents, forwarded emails, details, confirmations, sign-in records and inbound address from our live systems immediately and from backups within 30 days. If another account uploaded an identical file, that copy stays with that account only. Cost records are kept without any link to you or your documents. We keep a one-way fingerprint of a deleted account and its inbound address, so that the address is never given to anyone else and the deletion is re-applied if a backup is ever restored.
 - Technical logs are kept for a limited period for security and troubleshooting.
 
 ## 5. Security
@@ -111,8 +115,8 @@ Data is encrypted in transit. Files are stored in private storage that is not pu
 ## 6. Your choices and rights
 
 - **Access and correction:** view and correct your documents' details in the app.
-- **Export:** download your records (PDF, CSV and UTEM files) on paid plans; on request, we provide a copy of your data on any plan.
-- **Deletion:** delete documents or your whole account in the app.
+- **Export:** on request, we provide a copy of your data on any plan. Downloads in the app (PDF, CSV and UTEM files) will come with paid plans.
+- **Deletion:** delete your whole account in the app. To delete a single document, contact us and we will delete it.
 - Depending on where you live (for example in the EU, the UK or California), you may have additional rights, such as objecting to processing or asking for a copy of your data in a portable format. Contact us to use them.
 
 ## 7. International users
