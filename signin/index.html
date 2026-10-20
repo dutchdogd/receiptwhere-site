@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="referrer" content="no-referrer">
+    <title>Opening ReceiptWhere sign-in</title>
+  </head>
+  <body>
+    <p id="message">Opening ReceiptWhere sign-in...</p>
+    <script>
+      (function () {
+        var fragment = window.location.hash;
+        if (!fragment) {
+          document.getElementById("message").textContent =
+            "Open the sign-in link from your email again.";
+          return;
+        }
+        window.location.replace("https://api.receiptwhere.com/signin" + fragment);
+      })();
+    </script>
+  </body>
+</html>

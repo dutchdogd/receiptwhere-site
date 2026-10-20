@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.receiptwhere.app",
+      "sha256_cert_fingerprints": [
+        "79:F5:53:FA:DA:C2:20:88:20:88:9F:B8:17:5E:F7:E7:83:70:F8:43:04:47:FB:74:4B:12:2A:8F:8D:D7:61:23"
+      ]
+    }
+  }
+]
