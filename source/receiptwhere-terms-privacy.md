@@ -105,7 +105,7 @@ Our AI provider processes documents under commercial terms that do not permit it
 
 - While your account is open, we keep your documents and details. On the Free plan, documents older than six months are archived, not deleted, and become visible again if you upgrade.
 - Delivery records for forwarded email are deleted after 48 hours, and used or expired sign-in links after 24 hours.
-- **When you delete your account,** we remove your documents, forwarded emails, details, confirmations, sign-in records and inbound address from our live systems immediately. Copies in our backups expire within 35 days. If another account uploaded an identical file, that copy stays with that account only. Cost records are kept without any link to you or your documents. We keep a one-way fingerprint of a deleted account and its inbound address, so that the address is never given to anyone else and the deletion is re-applied if a backup is ever restored.
+- **When you delete your account,** we remove your documents, forwarded emails, details, confirmations, sign-in records and inbound address from our live systems immediately. Copies in our backups expire within 35 days. Technical logs are kept up to 90 days. If another account uploaded an identical file, that copy stays with that account only. Cost records are kept without any link to you or your documents. We keep a one-way fingerprint of a deleted account and its inbound address, so that the address is never given to anyone else and the deletion is re-applied if a backup is ever restored.
 - Technical logs are kept for a limited period for security and troubleshooting.
 
 ## 5. Security
