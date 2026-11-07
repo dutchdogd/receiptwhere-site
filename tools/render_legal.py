@@ -99,13 +99,13 @@ PAGE = """<!doctype html>
 <body>
 <header class="site-header">
   <a class="brand" href="/"><img src="/favicon.svg" alt="" width="32" height="32"><span class="wordmark">Receipt<span class="where">Where</span></span></a>
-  <nav aria-label="Legal"><a href="/terms/"{terms_current}>Terms</a> <a href="/privacy/"{privacy_current}>Privacy</a></nav>
+  <nav aria-label="Legal"><a href="/terms/"{terms_current}>Terms</a> <a href="/privacy/"{privacy_current}>Privacy</a> <a href="/delete-account/">Delete account</a></nav>
 </header>
 <main class="legal">
 {body}
 </main>
 <footer class="site-footer">
-  <a href="/terms/">Terms</a> <a href="/privacy/">Privacy</a> <a href="mailto:receipt@receiptwhere.com">receipt@receiptwhere.com</a>
+  <a href="/terms/">Terms</a> <a href="/privacy/">Privacy</a> <a href="/delete-account/">Delete account</a> <a href="mailto:receipt@receiptwhere.com">receipt@receiptwhere.com</a>
 </footer>
 </body>
 </html>
