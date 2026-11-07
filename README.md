@@ -9,6 +9,7 @@ serves the files as they are.
 | `/` | `index.html`: the holding page |
 | `/terms/` | `terms/index.html`: the Terms of Service |
 | `/privacy/` | `privacy/index.html`: the Privacy Policy |
+| `/delete-account/` | `delete-account/index.html`: how to delete an account or receipts (hand-written; linked from the legal pages' header and footer, which `tools/render_legal.py` writes) |
 
 ## The legal pages are generated from one source, verbatim
 
