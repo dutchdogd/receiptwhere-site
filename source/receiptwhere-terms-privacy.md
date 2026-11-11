@@ -23,7 +23,7 @@ ReceiptWhere is currently in **beta**. Features may change, and the service may 
 
 ## 4. Automated reading and your responsibility
 
-Details are read automatically and **may contain errors**: for example, a misread digit on a faded receipt. ReceiptWhere shows each detail next to the image of your document marks details it could not confirm, and lets you correct any detail, also after a receipt was accepted. **You are responsible for checking information before relying on it**, for example for taxes, expense claims or bookkeeping. ReceiptWhere does not provide tax, legal, accounting or financial advice.
+Details are read automatically and **may contain errors**: for example, a misread digit on a faded receipt. ReceiptWhere shows each detail next to the image of your document, marks details it could not confirm, and lets you correct any detail, also after a receipt was accepted. **You are responsible for checking information before relying on it**, for example for taxes, expense claims or bookkeeping. ReceiptWhere does not provide tax, legal, accounting or financial advice.
 
 ## 5. Acceptable use
 
