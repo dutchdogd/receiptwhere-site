@@ -1,0 +1,11 @@
+---
+// Navy page header used by Features, Pricing and About.
+interface Props { eyebrow: string; title: string }
+const { eyebrow, title } = Astro.props;
+---
+<section class="page-hero">
+  <div class="wrap stack">
+    <p class="eyebrow eyebrow-amber">{eyebrow}</p>
+    <h1>{title}</h1>
+  </div>
+</section>

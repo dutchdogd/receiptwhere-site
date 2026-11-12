@@ -1,0 +1,67 @@
+---
+// Pricing, from docs/design/project/Pricing.dc.html. Copy as designed; see the S2
+// report for lines that conflict with the published Terms (paid plans, beta).
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+
+const faq = [
+  { q: "What happens at the 51st receipt on Free?", a: "Nothing is lost. The receipt is kept and read at the start of next month, or right away when you upgrade." },
+  { q: "Does ReceiptWhere do my taxes?", a: "No. It gives you, or your tax preparer, checked records and one clean export. It doesn't give tax advice." },
+  { q: "How do I cancel?", a: "In Google Play's subscriptions. You keep the paid plan until the end of the period you paid for. Deleting your account also stops the renewal." },
+  { q: "Is there an iPhone app?", a: "It's coming soon after Android. Your account and receipts will work on both." },
+];
+---
+<Base title="Pricing: ReceiptWhere" description="Start free with up to 50 receipts a month. Upgrade when your receipts outgrow it." path="/pricing/" current="pricing">
+  <PageHero eyebrow="Pricing" title="Start free. Pay when your receipts outgrow it." />
+
+  <section class="section section-tight" aria-label="Plans">
+    <div class="wrap">
+      <div class="plans">
+        <div class="plan">
+          <h2>Free</h2>
+          <p class="price"><span class="amount">$0</span><span class="per">forever</span></p>
+          <ul>
+            <li>Up to 50 receipts a month</li>
+            <li>Reading, checking and "To check" on every receipt</li>
+            <li>Search across every receipt you can see</li>
+            <li>Projects and totals</li>
+            <li>The last 6 months visible; older receipts kept safely and shown again when you upgrade</li>
+          </ul>
+          <a class="btn btn-outline" href="/#get">Get started</a>
+        </div>
+
+        <div class="plan plan-featured">
+          <div class="plan-head"><h2>ReceiptWhere</h2><span class="pill pill-popular">Most popular</span></div>
+          <p class="price"><span class="amount">$2.99</span><span class="per">a month, or $24.99 a year</span></p>
+          <ul>
+            <li>Up to 300 receipts a month</li>
+            <li>Your full history, always visible</li>
+            <li>CSV export for your tax preparer or bookkeeper</li>
+            <li>Everything in Free</li>
+          </ul>
+          <a class="btn btn-navy" href="/#get">Upgrade in the app</a>
+        </div>
+
+        <div class="plan plan-soon">
+          <div class="plan-head"><h2>ReceiptWhere Plus</h2><span class="pill pill-soon">Coming soon</span></div>
+          <p class="blurb">For people who want every card payment backed by a receipt.</p>
+          <ul>
+            <li>Card and bank statements read and matched to your receipts</li>
+            <li>The list of payments that still have no receipt</li>
+            <li>Everything in ReceiptWhere</li>
+          </ul>
+        </div>
+      </div>
+      <p class="fineprint">Prices in US dollars. Subscriptions are billed through Google Play, renew automatically, and can be cancelled anytime in Google Play.</p>
+    </div>
+  </section>
+
+  <section class="section section-tight section-panel faq" aria-labelledby="faq">
+    <div class="wrap">
+      <h2 id="faq">Questions</h2>
+      {faq.slice(0, 3).map((f) => (<div class="qa"><h3>{f.q}</h3><p>{f.a}</p></div>))}
+      <div class="qa"><h3>Do you sell my data or show ads?</h3><p>No. Your receipts are only used to run ReceiptWhere for you. See the <a href="/privacy/">Privacy Policy</a>.</p></div>
+      {faq.slice(3).map((f) => (<div class="qa"><h3>{f.q}</h3><p>{f.a}</p></div>))}
+    </div>
+  </section>
+</Base>

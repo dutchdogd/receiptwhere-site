@@ -1,0 +1,50 @@
+---
+// Features, from docs/design/project/Features.dc.html.
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import FeatureGroup from "../components/FeatureGroup.astro";
+
+const capture = [
+  { title: "Scan paper", text: "The camera finds the edges and straightens the receipt for you." },
+  { title: "Import photos and PDFs", text: "Bring in the receipts already on your phone, several at once." },
+  { title: "Share from any app", text: "Send a receipt to ReceiptWhere from your gallery, files or email app." },
+  { title: "Your own forwarding address", text: "Forward email receipts, or set a filter, and they arrive by themselves." },
+];
+const read = [
+  { title: "The details that matter", text: "Store, date, total, tax, and how you paid: card, debit, EBT, gift card or cash." },
+  { title: "Checked against the receipt", text: "The total has to agree with the items, the tax and the payment before it counts." },
+  { title: "Refunds and returns", text: "Recognised as money back, also when the store prints the minus sign at the end." },
+  { title: "No double counting", text: "The same receipt scanned twice, or the email and the paper copy, is spotted." },
+  { title: "\"To check\" and notifications", text: "When something is uncertain, you get a quiet notification and a one-tap check." },
+  { title: "\"Something's wrong\"", text: "Correct any detail on any receipt. Your correction is kept, even when it's read again." },
+];
+const organise = [
+  { title: "Search", text: "By store, amount, date or anything printed on the receipt." },
+  { title: "Projects", text: "Group receipts per job, client, trip or renovation, with a running total." },
+  { title: "Totals", text: "Per month, store, card or project, with refunds netted." },
+  { title: "Export for your tax preparer", text: "One CSV for the year, with each receipt marked as checked or confirmed. On the paid plan." },
+];
+const next = [
+  { title: "Money in, too", text: "Income documents next to your expenses, per month." },
+  { title: "Spending by store type", text: "Groceries, hardware, utilities: see where the money goes." },
+  { title: "On your computer", text: "Import, view and organise at app.receiptwhere.com." },
+  { title: "ReceiptWhere Plus", text: "Match your card statements, and see which payments still have no receipt." },
+];
+---
+<Base title="Features: ReceiptWhere" description="Capture receipts every way they reach you, have them read and checked like a bookkeeper would, and find, total and export them." path="/features/" current="features">
+  <PageHero eyebrow="Features" title="From paper to proof, without typing a single number." />
+  <FeatureGroup id="f-capture" label="Capture" title="Every way a receipt reaches you" items={capture} />
+  <FeatureGroup id="f-read" label="Read and check" title="Read like a bookkeeper would" items={read} panel />
+  <FeatureGroup id="f-org" label="Organise and use" title="Find it, total it, hand it over" items={organise} />
+  <section class="section section-tight section-panel" aria-labelledby="f-next">
+    <div class="wrap">
+      <div class="feature-head">
+        <span class="mono-label">Coming next</span>
+        <h2 id="f-next">Where ReceiptWhere is going</h2>
+      </div>
+      <div class="cards next-cards">
+        {next.map((c) => (<div class="card card-white"><h3>{c.title}</h3><p>{c.text}</p></div>))}
+      </div>
+    </div>
+  </section>
+</Base>

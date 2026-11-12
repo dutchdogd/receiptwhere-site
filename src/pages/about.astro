@@ -1,0 +1,47 @@
+---
+// About, from docs/design/project/About.dc.html. No photo block and no co-founder
+// name until Matthijs decides: both are switches in src/data/about.ts.
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import { founderPhoto, cofounder } from "../data/about";
+
+const principles = [
+  { title: "Simple", text: "You capture the receipt. ReceiptWhere does the rest. No categories to maintain, no forms to fill." },
+  { title: "Honest about certainty", text: "Every value is checked against the receipt itself. When it can't be checked, we ask instead of guessing." },
+  { title: "The original is the evidence", text: "Your image or file is always kept unchanged, next to what was read from it." },
+  { title: "Your data is yours", text: "Never sold, never used for ads, and deleted when you ask." },
+];
+---
+<Base title="About: ReceiptWhere" description="ReceiptWhere is built by someone who needed it, and who knows what a receipt has to prove. Made by DuoNex AI LLC in Burien, Washington." path="/about/" current="about">
+  <PageHero eyebrow="About" title="Built by someone who needed it, and who knows what a receipt has to prove." />
+
+  <section class="section" aria-labelledby="story">
+    <div class="wrap story">
+      {founderPhoto && <img class="story-photo" src={founderPhoto.src} alt={founderPhoto.alt} width="300" height="375" />}
+      <div class="story-text">
+        <h2 id="story">How it started</h2>
+        <blockquote>"I was always carrying stacks of receipts and never found the time to organize them."</blockquote>
+        <p>Matthijs van Leeuwen studied business economics and fiscal economics, taught taxation, and spent eight years leading product management for financial software at an ERP vendor. He knew exactly what a receipt has to prove for taxes and bookkeeping, and still had a drawer full of them.</p>
+        <p>So he started building the tool he wanted: one that reads a receipt the way a careful bookkeeper would, checks the numbers against each other, and is honest when it isn't sure. Every hard case it handles today, from faded thermal paper to EBT balances, refunds and split payments, came from real receipts.</p>
+        <p class="byline">Matthijs van Leeuwen, founder and CEO</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-panel principles" aria-labelledby="principles">
+    <div class="wrap">
+      <h2 id="principles">What we hold to</h2>
+      <div class="cols">
+        {principles.map((c) => (<div class="col"><h3>{c.title}</h3><p>{c.text}</p></div>))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section company" aria-labelledby="company">
+    <div class="wrap">
+      <h2 id="company">The company</h2>
+      <p>ReceiptWhere is made by DuoNex AI LLC, a small software company in Burien, Washington, founded by Matthijs van Leeuwen{cofounder ? ` and ${cofounder.name} (${cofounder.role})` : ""}. We build tools that turn financial documents into evidence you can rely on, for people who keep their own records and for the bookkeepers and tax preparers who help them.</p>
+      <p>Questions or ideas: <a href="mailto:receipt@receiptwhere.com"><strong>receipt@receiptwhere.com</strong></a></p>
+    </div>
+  </section>
+</Base>
