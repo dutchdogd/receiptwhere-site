@@ -67,6 +67,11 @@ def main() -> int:
         failed |= bool(leaks)
         print(f"{'yes' if not leaks else 'NO '}  dist/ holds nothing from docs/"
               + "".join(f"\n       {p.relative_to(DIST)}" for p in leaks))
+        third = [p for p in DIST.rglob("*") if p.suffix in (".html", ".css")
+                 and re.search(r"fonts\.(googleapis|gstatic)\.com", p.read_text("utf-8"))]
+        failed |= bool(third)
+        print(f"{'yes' if not third else 'NO '}  dist/ makes no Google Fonts request"
+              + "".join(f"\n       {p.relative_to(DIST)}" for p in third))
     else:
         print("note: dist/ not built; checked public/ only")
 
