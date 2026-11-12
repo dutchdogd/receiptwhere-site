@@ -1,5 +1,8 @@
 /* ReceiptWhere: navy #12233D, deep amber #A35F00 ("Where" and links on light
-   backgrounds), paper #F5F7FA. The mark's pin keeps its own brighter amber. */
+   backgrounds), paper #F5F7FA. The mark's pin keeps its own brighter amber.
+   Fonts are self-hosted (DM Sans 400/500/700); no third-party font requests. */
+@import url("/fonts/fonts.css");
+
 :root {
   --navy: #12233D;
   --amber: #A35F00;
@@ -16,7 +19,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--navy);
-  font-family: "Sora", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   font-size: 1rem;
   line-height: 1.65;
 }
@@ -43,7 +46,7 @@ a:hover, a:focus-visible { color: var(--navy); }
   font-weight: 700;
   letter-spacing: -0.02em;
 }
-.holding .tagline { margin: 0; font-size: 1.15rem; font-weight: 600; }
+.holding .tagline { margin: 0; font-size: 1.15rem; font-weight: 700; }
 .holding .beta { margin: 1rem 0 0; color: var(--muted); }
 .holding .contact { margin: 0.25rem 0 0; }
 .holding footer { margin-top: 3rem; font-size: 0.9rem; }
@@ -70,7 +73,7 @@ a:hover, a:focus-visible { color: var(--navy); }
   font-weight: 700;
   font-size: 1.15rem;
 }
-.site-header nav a { margin-left: 1rem; font-weight: 600; }
+.site-header nav a { margin-left: 1rem; font-weight: 700; }
 .site-header nav a[aria-current="page"] { color: var(--navy); text-decoration: none; }
 
 .legal {
@@ -92,7 +95,7 @@ th, td {
   padding: 0.6rem 0.75rem;
   border: 1px solid var(--rule);
 }
-th { background: var(--navy); color: var(--paper); font-weight: 600; }
+th { background: var(--navy); color: var(--paper); font-weight: 700; }
 
 /* Phone width: the columns wrap instead of scrolling sideways. */
 @media (max-width: 480px) {
