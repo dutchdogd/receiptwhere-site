@@ -106,6 +106,8 @@ We use a small number of service providers, each only to run ReceiptWhere:
 | Google (Firebase Cloud Messaging) | Delivering notifications to Android devices, if you turn them on | As per their own policies |
 | Google, Apple | Sign-in, if you choose them | As per their own policies |
 
+Our website, receiptwhere.com, is hosted by Cloudflare in the United States. When you visit it, Cloudflare processes your IP address and basic browser information to deliver the pages and protect the site. The website sets no cookies and uses no ads or analytics, and its fonts are served from our own site.
+
 Our reading providers process documents under commercial terms that do not permit them to train their models on your content. We share information with others only if the law requires it, or with your instruction.
 
 ## 4. How long we keep it
