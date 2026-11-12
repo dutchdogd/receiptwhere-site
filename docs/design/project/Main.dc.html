@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ReceiptWhere home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#FFFFFF;font-family:'DM Sans',Arial,sans-serif;color:#12233D}
+a{color:#8A5200}a:hover{color:#5E3800}
+</style>
+</helmet>
+<div style="width: 100%; font-family: 'DM Sans', Arial, sans-serif; color: #12233D; background: #FFFFFF">
+
+<header style="background: #12233D; padding: 20px max(16px, 5vw)">
+<nav aria-label="Main" style="max-width: 1160px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px">
+<a href="Main.dc.html" style="font-size: 22px; font-weight: 700; color: #FFFFFF; text-decoration: none; margin-right: auto">ReceiptWhere</a>
+<a href="#how" style="color: #C5CEDB; text-decoration: none; font-size: 16px">How it works</a>
+<a href="Features.dc.html" style="color: #C5CEDB; text-decoration: none; font-size: 16px">Features</a>
+<a href="Pricing.dc.html" style="color: #C5CEDB; text-decoration: none; font-size: 16px">Pricing</a>
+<a href="About.dc.html" style="color: #C5CEDB; text-decoration: none; font-size: 16px">About</a>
+<a href="SignIn.dc.html" style="color: #FFFFFF; text-decoration: none; font-size: 16px; font-weight: 500">Sign in</a>
+<a href="#get" style="background: {{accent}}; color: #12233D; font-weight: 700; text-decoration: none; padding: 12px 20px; border-radius: 10px; font-size: 16px">Get the app</a>
+</nav>
+</header>
+
+<section style="background: #12233D; padding: 56px max(16px, 5vw) 96px">
+<div style="max-width: 1160px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
+<div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<p style="margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: {{accent}}">The shoebox that reads itself</p>
+<h1 style="margin: 0; font-size: 60px; line-height: 1.05; font-weight: 700; color: #FFFFFF">Every receipt. Read, checked, and ready when you need it.</h1>
+<p style="margin: 0; font-size: 20px; line-height: 1.5; color: #C5CEDB; max-width: 560px">Snap it, share it or forward it. ReceiptWhere reads the store, date, total, tax and how you paid, checks its own reading against the receipt, and tells you when something needs a look.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+<a href="#get" style="background: {{accent}}; color: #12233D; font-weight: 700; text-decoration: none; padding: 16px 24px; border-radius: 12px; font-size: 18px">Get it on Google Play</a>
+<span style="color: #C5CEDB; font-size: 16px">iPhone version coming soon</span>
+</div>
+<p style="margin: 0; font-size: 15px; color: #C5CEDB">Free for up to 50 receipts a month. No card needed.</p>
+</div>
+<div style="flex: 1 1 340px; min-width: 0; display: flex; justify-content: center">
+<div role="img" aria-label="A receipt as ReceiptWhere reads it, with the total checked against the card payment" style="width: 340px; max-width: 100%; background: #FFFFFF; border-radius: 6px; padding: 28px 26px; font-family: 'IBM Plex Mono', monospace; font-size: 15px; color: #12233D; display: flex; flex-direction: column; gap: 6px">
+<div style="text-align: center; font-weight: 500">HARDWARE CO. #214</div>
+<div style="text-align: center; color: #4A5568">11/06/2026 10:04 AM</div>
+<div style="border-top: 1px dashed #C5CEDB; margin: 10px 0"></div>
+<div style="display: flex; justify-content: space-between"><span>WOOD SCREWS</span><span>8.97</span></div>
+<div style="display: flex; justify-content: space-between"><span>PAINT ROLLER</span><span>12.49</span></div>
+<div style="display: flex; justify-content: space-between"><span>DROP CLOTH</span><span>6.99</span></div>
+<div style="border-top: 1px dashed #C5CEDB; margin: 10px 0"></div>
+<div style="display: flex; justify-content: space-between"><span>SUBTOTAL</span><span>28.45</span></div>
+<div style="display: flex; justify-content: space-between"><span>TAX</span><span>2.96</span></div>
+<div style="display: flex; justify-content: space-between; font-weight: 500; background: #FCEBCF; padding: 4px 6px; margin: 0 -6px"><span>TOTAL</span><span>31.41</span></div>
+<div style="display: flex; justify-content: space-between; background: #FCEBCF; padding: 4px 6px; margin: 0 -6px"><span>VISA ••4242</span><span>31.41</span></div>
+<div style="margin-top: 14px; font-family: 'DM Sans', Arial, sans-serif; font-size: 14px; background: #E7F4EC; color: #1E5B36; border-radius: 8px; padding: 10px 12px">Checked: subtotal + tax and the card payment both match the total.</div>
+</div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="why" style="padding: 96px max(16px, 5vw)">
+<div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 12px; max-width: 720px">
+<p style="margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #8A5200">Why ReceiptWhere</p>
+<h2 id="why" style="margin: 0; font-size: 42px; line-height: 1.15">Receipts are proof. Most of them end up in a drawer.</h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+<div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px; padding: 28px; background: #F4F6F9; border-radius: 16px">
+<h3 style="margin: 0; font-size: 22px">The shoebox</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A5568">Paper fades, emails get buried, and the receipt you need is never the one on top. ReceiptWhere keeps every one in a single place, readable and searchable.</p>
+</div>
+<div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px; padding: 28px; background: #F4F6F9; border-radius: 16px">
+<h3 style="margin: 0; font-size: 22px">Tax time</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A5568">Self-employed, side business, or just keeping records: hand your tax preparer one clean file instead of a bag of paper.</p>
+</div>
+<div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px; padding: 28px; background: #F4F6F9; border-radius: 16px">
+<h3 style="margin: 0; font-size: 22px">Returns and warranties</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A5568">Find the receipt in seconds by store, amount or date, and show it at the counter.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="how" style="padding: 96px max(16px, 5vw); background: #F4F6F9">
+<div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 12px; max-width: 720px">
+<p style="margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #8A5200">How it works</p>
+<h2 id="how" style="margin: 0; font-size: 42px; line-height: 1.15">Three steps. You only do the first.</h2>
+</div>
+<ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 24px">
+<li style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px; background: #FFFFFF; border-radius: 16px; padding: 28px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 15px; color: #8A5200">Step 1</span>
+<h3 style="margin: 0; font-size: 22px">Capture</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A5568">Scan a paper receipt, import photos and PDFs, share from any app, or forward email receipts to your own ReceiptWhere address.</p>
+</li>
+<li style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px; background: #FFFFFF; border-radius: 16px; padding: 28px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 15px; color: #8A5200">Step 2</span>
+<h3 style="margin: 0; font-size: 22px">ReceiptWhere reads and checks</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A5568">Store, date, total, tax and payment method are read automatically, then checked against the receipt's own numbers. Anything uncertain lands in "To check".</p>
+</li>
+<li style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 10px; background: #FFFFFF; border-radius: 16px; padding: 28px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 15px; color: #8A5200">Step 3</span>
+<h3 style="margin: 0; font-size: 22px">Find, total, export</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A5568">Search any receipt, see totals by month, store, card or project, and export a clean file for your tax preparer or bookkeeper.</p>
+</li>
+</ol>
+</div>
+</section>
+
+<section aria-labelledby="trust" style="padding: 96px max(16px, 5vw)">
+<div style="max-width: 1160px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
+<div style="flex: 1 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<p style="margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #8A5200">What makes it different</p>
+<h2 id="trust" style="margin: 0; font-size: 42px; line-height: 1.15">It tells you when it isn't sure.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #4A5568">Most apps read a receipt and hope for the best. ReceiptWhere checks every total against what the receipt itself proves: the items, the tax, and the payment. When the numbers don't agree, or a faded digit could be read two ways, it asks you instead of guessing. One tap fixes it, and your correction is kept.</p>
+</div>
+<ul style="flex: 1 1 380px; min-width: 0; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 14px">
+<li style="display: flex; gap: 14px; align-items: baseline; font-size: 17px; line-height: 1.5"><span aria-hidden="true" style="font-family: 'IBM Plex Mono', monospace; color: #8A5200">✓</span><span>Total checked against subtotal plus tax, and against the payment</span></li>
+<li style="display: flex; gap: 14px; align-items: baseline; font-size: 17px; line-height: 1.5"><span aria-hidden="true" style="font-family: 'IBM Plex Mono', monospace; color: #8A5200">✓</span><span>Refunds recognised and shown as money back</span></li>
+<li style="display: flex; gap: 14px; align-items: baseline; font-size: 17px; line-height: 1.5"><span aria-hidden="true" style="font-family: 'IBM Plex Mono', monospace; color: #8A5200">✓</span><span>The same receipt sent twice is spotted, so nothing counts double</span></li>
+<li style="display: flex; gap: 14px; align-items: baseline; font-size: 17px; line-height: 1.5"><span aria-hidden="true" style="font-family: 'IBM Plex Mono', monospace; color: #8A5200">✓</span><span>A notification when a receipt needs a quick check</span></li>
+<li style="display: flex; gap: 14px; align-items: baseline; font-size: 17px; line-height: 1.5"><span aria-hidden="true" style="font-family: 'IBM Plex Mono', monospace; color: #8A5200">✓</span><span>Your original image is always kept, next to what was read</span></li>
+</ul>
+</div>
+</section>
+
+<section aria-labelledby="who" style="padding: 96px max(16px, 5vw); background: #F4F6F9">
+<div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px">
+<h2 id="who" style="margin: 0; font-size: 42px; line-height: 1.15">Made for people who keep their own records</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+<div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 20px">Self-employed and freelancers</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #4A5568">Business expenses kept apart with projects, ready for your Schedule C.</p></div>
+<div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 20px">Contractors and trades</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #4A5568">Material receipts per job, so nothing gets lost between the store and the invoice.</p></div>
+<div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 20px">Households</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #4A5568">Warranties, returns and big purchases, always one search away.</p></div>
+<div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 8px"><h3 style="margin: 0; font-size: 20px">Bookkeepers and tax preparers</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #4A5568">Clients who send you checked records instead of a shoebox. Tools for you are coming.</p></div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="privacy" style="padding: 96px max(16px, 5vw)">
+<div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px">
+<h2 id="privacy" style="margin: 0; font-size: 42px; line-height: 1.15">Your receipts stay yours</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+<p style="flex: 1 1 240px; min-width: 0; margin: 0; font-size: 17px; line-height: 1.55"><strong>We don't sell your data</strong> and show no ads.</p>
+<p style="flex: 1 1 240px; min-width: 0; margin: 0; font-size: 17px; line-height: 1.55"><strong>Stored in the United States,</strong> in private storage.</p>
+<p style="flex: 1 1 240px; min-width: 0; margin: 0; font-size: 17px; line-height: 1.55"><strong>Card and account numbers</strong> kept to the last four digits in what we store and search.</p>
+<p style="flex: 1 1 240px; min-width: 0; margin: 0; font-size: 17px; line-height: 1.55"><strong>Delete anytime:</strong> one receipt or your whole account, right in the app.</p>
+</div>
+</div>
+</section>
+
+<section id="get" aria-labelledby="cta" style="padding: 88px max(16px, 5vw); background: #12233D">
+<div style="max-width: 1160px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 24px; align-items: center">
+<div style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<h2 id="cta" style="margin: 0; font-size: 40px; line-height: 1.15; color: #FFFFFF">Empty the shoebox.</h2>
+<p style="margin: 0; font-size: 18px; color: #C5CEDB">Free for up to 50 receipts a month. Upgrade when you need more.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="#get" style="background: {{accent}}; color: #12233D; font-weight: 700; text-decoration: none; padding: 16px 24px; border-radius: 12px; font-size: 18px">Get it on Google Play</a>
+<a href="Pricing.dc.html" style="color: #FFFFFF; text-decoration: none; padding: 16px 24px; border-radius: 12px; font-size: 18px; border: 1px solid #4A5D7A">See pricing</a>
+</div>
+</div>
+</section>
+
+<footer style="padding: 40px max(16px, 5vw); background: #0C1A2E">
+<div style="max-width: 1160px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; font-size: 15px; color: #C5CEDB">
+<span style="margin-right: auto">© 2026 DuoNex AI LLC · Burien, Washington</span>
+<a href="#" style="color: #C5CEDB">Terms</a>
+<a href="#" style="color: #C5CEDB">Privacy</a>
+<a href="#" style="color: #C5CEDB">Delete account</a>
+<span>receipt@receiptwhere.com</span>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#F2A93B","options":["#F2A93B","#5BC0A8","#7FA7FF"]},"$preview":{"width":1280,"height":4300}}'>
+class Component extends DCLogic {
+renderVals() {
+return { accent: this.props.accent ?? '#F2A93B' };
+}
+}
+</script>
+</body>
+</html>
