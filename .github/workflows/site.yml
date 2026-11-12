@@ -1,0 +1,150 @@
+# Build, verify, deploy. Every branch except main deploys a Cloudflare Pages preview;
+# main deploys production only after a required reviewer approves the `production`
+# environment. Nothing deploys unless `checks` passes.
+name: site
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PAGES_PROJECT: receiptwhere-site
+  # true while GitHub Pages still serves the root of main (until the S1b cutover).
+  # While true, a PR into main may not carry docs/ or the Astro sources.
+  GITHUB_PAGES_SERVES_MAIN: "true"
+
+jobs:
+  checks:
+    name: checks
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Guard - nothing from docs/ or the Astro sources into main while GitHub Pages serves it
+        if: github.event_name == 'pull_request' && env.GITHUB_PAGES_SERVES_MAIN == 'true'
+        run: |
+          if [ -e docs ] || [ -e src ] || [ -e package.json ]; then
+            echo "::error::This PR would put docs/ or the Astro project on main while GitHub Pages serves main's root."
+            exit 1
+          fi
+
+      - name: Legal pages are reproducible from the source
+        run: |
+          python tools/render_legal.py
+          git diff --exit-code -- public/terms public/privacy
+
+      - name: Wording check (verbatim)
+        run: python tools/verbatim_check.py
+
+      - run: npm ci --no-fund --no-audit
+
+      - name: Self-hosted fonts are reproducible from the pinned packages
+        run: |
+          npm run -s fonts
+          git diff --exit-code -- public/fonts
+
+      - run: npm run build
+
+      - name: Protected files byte-identical (public/ and dist/)
+        run: python tools/check_protected.py
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: dist
+          path: dist/
+          include-hidden-files: true   # .well-known/
+          if-no-files-found: error
+          retention-days: 7
+
+  preview:
+    needs: checks
+    if: github.event_name == 'push' && github.ref != 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci --no-fund --no-audit
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: dist
+          path: dist/
+      - name: Deploy preview
+        id: deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          BRANCH: ${{ github.ref_name }}
+          SHA: ${{ github.sha }}
+        run: bash tools/pages_deploy.sh "$BRANCH" "$SHA"
+      - name: Fetch the preview back and check it
+        env:
+          URL: ${{ steps.deploy.outputs.url }}
+        run: bash tools/wait_and_check.sh "$URL" --preview
+      - name: Summary
+        env:
+          URL: ${{ steps.deploy.outputs.url }}
+          ALIAS: ${{ steps.deploy.outputs.alias }}
+        run: |
+          echo "Preview: $ALIAS" >> "$GITHUB_STEP_SUMMARY"
+          echo "This deployment: $URL" >> "$GITHUB_STEP_SUMMARY"
+
+  production:
+    needs: checks
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    environment: production   # required reviewer: Matthijs (after Chat's OK)
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci --no-fund --no-audit
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: dist
+          path: dist/
+      - name: Deploy production
+        id: deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          SHA: ${{ github.sha }}
+        run: bash tools/pages_deploy.sh main "$SHA"
+      - name: Fetch production back and check it
+        env:
+          URL: ${{ steps.deploy.outputs.url }}
+        run: bash tools/wait_and_check.sh "$URL"

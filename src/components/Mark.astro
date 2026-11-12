@@ -1,0 +1,15 @@
+---
+// The ReceiptWhere mark (same 100-unit geometry as public/favicon.svg and
+// tools/make_icons.py). Decorative unless a label is given.
+interface Props { size?: number; label?: string }
+const { size = 40, label } = Astro.props;
+---
+<svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width={size} height={size}
+  role={label ? "img" : undefined} aria-label={label} aria-hidden={label ? undefined : "true"}>
+  <rect width="100" height="100" rx="22" fill="#12233D"/>
+  <path d="M50 86C41 73 24 60 24 42a26 26 0 0 1 52 0c0 18-17 31-26 44z" fill="#F2A93B"/>
+  <path d="M39 27h22v26l-3.7-2.6-3.6 2.6-3.7-2.6-3.7 2.6-3.6-2.6L39 53z" fill="#FFFFFF"/>
+  <rect x="43" y="32" width="14" height="2.6" rx="1.3" fill="#12233D"/>
+  <rect x="43" y="37.5" width="14" height="2.6" rx="1.3" fill="#12233D"/>
+  <rect x="43" y="43" width="9" height="2.6" rx="1.3" fill="#12233D"/>
+</svg>

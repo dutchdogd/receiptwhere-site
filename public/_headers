@@ -1,0 +1,26 @@
+# Cloudflare Pages response headers. https://developers.cloudflare.com/pages/configuration/headers/
+# Two matching rules that set the same header get their values comma-joined, so
+# /signin/ first detaches ("! Name") the site-wide CSP and Referrer-Policy, then sets
+# its own. tools/check_protected.py checks the script hash below against
+# public/signin/index.html; tools/check_live.py checks what is actually served.
+# HSTS deliberately has no includeSubDomains/preload: other hosts under the domain
+# (mail tracking, api, app) are not this site's to commit to HTTPS-only.
+
+/*
+  Content-Security-Policy: default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'none'; object-src 'none'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  X-Frame-Options: DENY
+
+/signin/*
+  ! Content-Security-Policy
+  ! Referrer-Policy
+  Content-Security-Policy: default-src 'none'; script-src 'sha256-HrBNHDwjp7zu0CsLW8yYCiakjs0OV5V3OHlgpRVVya0='; img-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'
+  Referrer-Policy: no-referrer
+
+# The production *.pages.dev alias duplicates receiptwhere.com: keep it out of search.
+# (Preview deployments get X-Robots-Tag: noindex from Cloudflare by default.)
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex

@@ -1,0 +1,86 @@
+/* ReceiptWhere site: design tokens and shared components (docs/design/README.md).
+   No inline styles anywhere: the CSP is style-src 'self'. */
+:root {
+  --navy: #12233D;
+  --navy-deep: #0C1A2E;   /* footer */
+  --amber: #F2A93B;       /* accent fills: buttons, marks. Not for text on white. */
+  --link: #8A5200;
+  --link-hover: #5E3800;
+  --text: #12233D;
+  --body: #4A5568;
+  --muted: #C5CEDB;       /* text on navy */
+  --panel: #F4F6F9;
+  --highlight: #FCEBCF;
+  --success-bg: #E7F4EC; --success: #1E5B36;
+  --info-bg: #E7F1FB;    --info: #1F4E79;
+  --white: #FFFFFF;
+
+  --font: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --content: 1160px;
+  --gutter: max(16px, 5vw);
+  --radius-s: 10px;
+  --radius-m: 12px;
+  --radius-l: 18px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.55;
+}
+img, svg { max-width: 100%; }
+a { color: var(--link); text-underline-offset: 2px; }
+a:hover, a:focus-visible { color: var(--link-hover); }
+:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+
+.wrap { max-width: var(--content); margin: 0 auto; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0;
+  background: var(--amber); color: var(--navy); padding: 8px 12px; z-index: 10;
+}
+.skip:focus { left: 8px; top: 8px; }
+
+/* Header */
+.site-header { background: var(--navy); padding: 20px var(--gutter); }
+.site-header nav { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
+.site-header nav a { color: var(--muted); text-decoration: none; font-size: 16px; }
+.site-header nav a:hover, .site-header nav a:focus-visible { color: var(--white); }
+.site-header .brand {
+  display: inline-flex; align-items: center; gap: 10px; margin-right: auto;
+  color: var(--white); font-size: 22px; font-weight: 700;
+}
+.site-header .brand .mark { display: block; }
+
+/* Footer */
+.site-footer { background: var(--navy-deep); padding: 40px var(--gutter); }
+.site-footer .wrap {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px;
+  font-size: 15px; color: var(--muted);
+}
+.site-footer .owner { margin-right: auto; }
+.site-footer a { color: var(--muted); }
+.site-footer a:hover, .site-footer a:focus-visible { color: var(--white); }
+
+/* Holding page (S1a placeholder until the S2 Home page) */
+.holding {
+  background: var(--navy); color: var(--white);
+  padding: 72px var(--gutter) 96px; text-align: center;
+}
+.holding .mark { width: 96px; height: 96px; }
+.holding h1 { margin: 24px 0 0; font-size: clamp(36px, 7vw, 56px); line-height: 1.1; font-weight: 700; }
+.holding h1 .where { color: var(--amber); }
+.holding .tagline { margin: 12px 0 0; font-size: 20px; color: var(--muted); }
+.holding .beta {
+  display: inline-block; margin: 24px 0 0; padding: 4px 12px; border-radius: 999px;
+  font-family: var(--mono); font-size: 15px; background: var(--amber); color: var(--navy);
+}
+.holding .contact { margin: 24px 0 0; }
+.holding .contact a { color: var(--white); }
