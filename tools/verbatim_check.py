@@ -22,6 +22,7 @@ from html.parser import HTMLParser
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "source" / "receiptwhere-terms-privacy.md"
+PUBLIC = ROOT / "public"
 BREAK = re.compile(r"^<!--\s*PAGE BREAK.*?-->\s*$", re.M)
 
 
@@ -79,8 +80,8 @@ def main() -> int:
     terms_md, privacy_md = BREAK.split(SOURCE.read_text(encoding="utf-8"), maxsplit=1)
     failed = False
     for name, md in (("terms", terms_md), ("privacy", privacy_md)):
-        src, page = md_words(md), html_words(ROOT / name / "index.html")
-        diff = list(difflib.unified_diff(src, page, f"source:{name}", f"{name}/index.html",
+        src, page = md_words(md), html_words(PUBLIC / name / "index.html")
+        diff = list(difflib.unified_diff(src, page, f"source:{name}", f"public/{name}/index.html",
                                          lineterm="", n=2))
         print(f"== {name}: {len(src)} words in the source, {len(page)} on the page")
         if diff:

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Draw favicon.ico (16/32/48, the simplified mark) and apple-touch-icon.png (180,
-the full mark) with Pillow, from the same 100-unit geometry as favicon.svg and the
-mark in index.html. Run by hand; the images are committed.
+"""Draw public/favicon.ico (16/32/48, the simplified mark) and
+public/apple-touch-icon.png (180, the full mark) with Pillow, from the same 100-unit
+geometry as favicon.svg and src/components/Mark.astro. Run by hand; the images are
+committed. Both are listed in protected.sha256: redrawing them needs approval.
 """
 from __future__ import annotations
 
@@ -9,7 +10,7 @@ import pathlib
 
 from PIL import Image, ImageDraw
 
-ROOT = pathlib.Path(__file__).resolve().parents[1]
+ROOT = pathlib.Path(__file__).resolve().parents[1] / "public"
 NAVY, PIN, WHITE = (18, 35, 61, 255), (242, 169, 59, 255), (255, 255, 255, 255)
 SS = 8   # supersampling for smooth edges
 

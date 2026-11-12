@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Render source/receiptwhere-terms-privacy.md into terms/index.html and
-privacy/index.html. Run by hand when the source changes; the output is committed.
+"""Render source/receiptwhere-terms-privacy.md into public/terms/index.html and
+public/privacy/index.html. Run by hand when the source changes; the output is
+committed.
 
-NOT A BUILD STEP: GitHub Pages serves the committed HTML as it is. This only keeps
-the HTML reproducible from the one source of record.
+NOT A BUILD STEP: Astro copies public/ into dist/ byte for byte, and CI re-runs this
+script and fails if the committed HTML differs. This only keeps the HTML
+reproducible from the one source of record.
 
 The source is split at its PAGE BREAK comment. The text is copied VERBATIM: only
 Markdown syntax becomes HTML (headings, paragraphs, lists, **bold**, *italic*,
@@ -20,6 +22,7 @@ import re
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "source" / "receiptwhere-terms-privacy.md"
+PUBLIC = ROOT / "public"
 BREAK = re.compile(r"^<!--\s*PAGE BREAK.*?-->\s*$", re.M)
 EMAIL = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
 
@@ -130,10 +133,10 @@ def split_source() -> tuple:
 def main() -> None:
     terms, privacy = split_source()
     for which, md in (("terms", terms), ("privacy", privacy)):
-        d = ROOT / which
+        d = PUBLIC / which
         d.mkdir(exist_ok=True)
         (d / "index.html").write_text(page(md, which), encoding="utf-8", newline="\n")
-        print(f"wrote {which}/index.html")
+        print(f"wrote public/{which}/index.html")
 
 
 if __name__ == "__main__":
