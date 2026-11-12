@@ -1,0 +1,11 @@
+# LF in every working copy, on every OS. The committed blobs are LF already, so this
+# changes no blob; it stops Windows checkouts (core.autocrlf=true) from turning the
+# protected files into CRLF copies whose bytes differ from what is served.
+* text=auto eol=lf
+
+*.png   binary
+*.ico   binary
+*.jpg   binary
+*.webp  binary
+*.woff  binary
+*.woff2 binary
