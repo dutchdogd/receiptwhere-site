@@ -1,6 +1,7 @@
 ---
-// Pricing, from docs/design/project/Pricing.dc.html. Copy as designed; see the S2
-// report for lines that conflict with the published Terms (paid plans, beta).
+// Pricing, from docs/design/project/Pricing.dc.html. Paid-plan copy is a launch fact
+// (Chat, S2): goes public only with the v1.0 Terms/Privacy. The "Deleting your account
+// also stops the renewal" line is VERIFY BEFORE LAUNCH (docs/ops/launch-checklist.md).
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 
@@ -60,7 +61,7 @@ const faq = [
     <div class="wrap">
       <h2 id="faq">Questions</h2>
       {faq.slice(0, 3).map((f) => (<div class="qa"><h3>{f.q}</h3><p>{f.a}</p></div>))}
-      <div class="qa"><h3>Do you sell my data or show ads?</h3><p>No. Your receipts are only used to run ReceiptWhere for you. See the <a href="/privacy/">Privacy Policy</a>.</p></div>
+      <div class="qa"><h3>Do you sell my data or show ads?</h3><p>No. Your receipts are only used to run ReceiptWhere for you, as the <a href="/privacy/">Privacy Policy</a> describes.</p></div>
       {faq.slice(3).map((f) => (<div class="qa"><h3>{f.q}</h3><p>{f.a}</p></div>))}
     </div>
   </section>
