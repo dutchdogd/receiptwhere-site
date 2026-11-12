@@ -8,6 +8,7 @@ For every entry in protected.sha256: the served bytes equal the manifest
 Also: assetlinks.json is served as application/json; every page checked carries
 exactly one CSP (no comma-joined duplicates); / and /terms/ forbid all scripts;
 /signin/ allows only its own script hash and sends Referrer-Policy: no-referrer.
+No page sets a cookie (no Set-Cookie header, e.g. from Bot Fight Mode).
 With --preview: X-Robots-Tag contains noindex.
 
 Prints the security headers as served; exits 1 on any failure.
@@ -61,6 +62,7 @@ def main() -> int:
         for name in SHOW:
             for value in headers.get_all(name) or ["(absent)"]:
                 print(f"   {name}: {value}")
+        check(not headers.get_all("Set-Cookie"), f"{path} sets no cookie")
         csps = headers.get_all("Content-Security-Policy") or []
         check(len(csps) == 1 and "," not in csps[0], f"{path} one CSP, not merged")
         csp = csps[0] if csps else ""
