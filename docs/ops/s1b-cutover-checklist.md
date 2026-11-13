@@ -49,11 +49,18 @@ Cloudflare Pages serves an apex custom domain only from a full-setup Cloudflare 
 ## After cutover, in this order (Chat, 2026-11-12)
 
 ### 1. Seven-day clean period: GitHub Pages stays available as the DNS rollback
-- [ ] **Before `site-astro` is merged into `main`:** create branch `pages-frozen` at
-      the last GitHub Pages commit on `main` and switch the GitHub Pages source to
-      `pages-frozen` (root). Otherwise, once `main` holds the Astro project, GitHub
-      Pages would serve the source tree instead of the site, and a DNS rollback would
-      land on it. Verify receiptwhere.com still serves the same bytes (check_live).
+- [ ] **A day or more before cutover, and before any merge of `site-astro` into
+      `main`:** create branch `pages-frozen` at the last GitHub Pages commit on `main`.
+      Otherwise, once `main` holds the Astro project, GitHub Pages would serve the
+      source tree instead of the site, and a DNS rollback would land on it.
+- [ ] **Immediately protect `pages-frozen`:** block pushes (restrict who can push to
+      nobody / lock branch) and block deletion. It stays protected until GitHub Pages
+      is turned off (step 2, day 8+).
+- [ ] Switch the GitHub Pages source to `pages-frozen` (root), still a day or more
+      before cutover.
+- [ ] Confirm with `tools/check_live.py`-style byte checks that receiptwhere.com
+      serves identical bytes from `pages-frozen` (protected files, `/`, assetlinks
+      content type). Only then may `site-astro` be merged into `main`.
 - [ ] Spaceship records stay untouched for the whole period.
 - [ ] Daily for 7 days: `tools/check_live.py https://receiptwhere.com` passes; mail
       to receipt@ and a sign-in email still arrive. Any failure: decide on rollback.
@@ -61,7 +68,7 @@ Cloudflare Pages serves an apex custom domain only from a full-setup Cloudflare 
 ### 2. Turn off GitHub Pages (day 8 or later, only after a clean period)
 - [ ] Settings → Pages: unpublish; remove the custom domain there.
 - [ ] Delete the `_github-pages-challenge-*` TXT record in Cloudflare DNS (if no
-      longer needed) and the `pages-frozen` branch.
+      longer needed). Remove the protection on `pages-frozen`, then delete the branch.
 - [ ] receiptwhere.com still served by Cloudflare (check_live passes).
 
 ### 3. Make the repo private
