@@ -19,6 +19,7 @@ from __future__ import annotations
 import hashlib
 import pathlib
 import sys
+import urllib.error
 import urllib.request
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
@@ -73,6 +74,31 @@ def main() -> int:
             check("script-src 'none'" in csp, f"{path} script-src 'none'")
         if preview:
             check("noindex" in (headers.get("X-Robots-Tag") or ""), f"{path} X-Robots-Tag noindex")
+
+    # S4: crawl files, manifest, 404, canonical trailing slash.
+    print("-- SEO basics")
+    body, headers = fetch(base + "/robots.txt")
+    text = body.decode("utf-8")
+    check("Allow: /" in text and "Sitemap: https://receiptwhere.com/sitemap.xml" in text,
+          "/robots.txt allows all and points to the sitemap")
+    body, headers = fetch(base + "/sitemap.xml")
+    check(body.startswith(b"<?xml") and b"<urlset" in body and b"https://receiptwhere.com/</loc>" in body,
+          f"/sitemap.xml served ({headers.get('Content-Type')}), canonical apex URLs")
+    _, headers = fetch(base + "/site.webmanifest")
+    check("manifest+json" in (headers.get("Content-Type") or "") or "json" in (headers.get("Content-Type") or ""),
+          f"/site.webmanifest served ({headers.get('Content-Type')})")
+    for icon in ["/icons/icon-192.png", "/icons/icon-512.png", "/favicon.svg", "/favicon.ico", "/apple-touch-icon.png"]:
+        _, headers = fetch(base + icon)
+        check(True, f"{icon} 200 ({headers.get('Content-Type')})")
+    try:
+        fetch(base + "/this-page-does-not-exist/")
+        check(False, "missing page answers 404")
+    except urllib.error.HTTPError as e:
+        page = e.read().decode("utf-8", "replace")
+        check(e.code == 404 and "isn't in the shoebox" in page, f"missing page answers {e.code} with the styled 404")
+    for path in ["/features", "/blog"]:
+        with urllib.request.urlopen(urllib.request.Request(base + path, headers=UA), timeout=30) as r:
+            check(r.geturl().endswith(path + "/"), f"{path} redirects to {path}/")
     return 1 if failed else 0
 
 

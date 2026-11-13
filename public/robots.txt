@@ -1,0 +1,6 @@
+# receiptwhere.com: everything may be crawled. Previews (*.pages.dev) are kept out
+# of search by their X-Robots-Tag: noindex header, not by this file.
+User-agent: *
+Allow: /
+
+Sitemap: https://receiptwhere.com/sitemap.xml

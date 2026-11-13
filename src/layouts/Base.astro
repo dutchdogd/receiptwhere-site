@@ -3,6 +3,7 @@
 // delete-account) are NOT built from this: they live in public/ byte for byte.
 import "../styles/site.css";
 import Mark from "../components/Mark.astro";
+import { ldJson } from "../lib/site";
 
 type Page = "home" | "features" | "pricing" | "about" | "blog";
 interface Props {
@@ -16,11 +17,16 @@ interface Props {
   published?: Date;
   modified?: Date;
   tags?: string[];
-  /** Draft posts on previews: never indexable. */
+  /** Draft posts on previews, the 404 page: never indexable. */
   noindex?: boolean;
+  /** The 404 page has no canonical URL. */
+  noCanonical?: boolean;
+  /** schema.org data, emitted as a JSON-LD data block. A data block (non-JavaScript
+      type) is never executed, so it is outside script-src: the CSP stays 'none'. */
+  jsonLd?: unknown;
 }
 const { title, description, path, current, ogImage = "/og/default.png", ogType = "website",
-        published, modified, tags = [], noindex = false } = Astro.props;
+        published, modified, tags = [], noindex = false, noCanonical = false, jsonLd } = Astro.props;
 const canonical = new URL(path, Astro.site).href;
 const image = new URL(ogImage, Astro.site).href;
 const year = new Date().getFullYear();
@@ -41,12 +47,14 @@ const nav: { href: string; label: string; page?: Page }[] = [
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content={description}>
-<link rel="canonical" href={canonical}>
+{!noCanonical && <link rel="canonical" href={canonical}>}
 {noindex && <meta name="robots" content="noindex,nofollow">}
 <meta name="theme-color" content="#12233D">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+{jsonLd !== undefined && <script is:inline type="application/ld+json" set:html={ldJson(jsonLd)} />}
 <link rel="alternate" type="application/rss+xml" title="ReceiptWhere blog" href="/blog/rss.xml">
 <meta property="og:site_name" content="ReceiptWhere">
 <meta property="og:type" content={ogType}>

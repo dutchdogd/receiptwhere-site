@@ -4,6 +4,7 @@ import type { GetStaticPaths } from "astro";
 import { render } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import { formatDate, getPosts, readingMinutes, tagSlug, type Post } from "../../lib/blog";
+import { organization, SITE } from "../../lib/site";
 
 export const getStaticPaths = (async () => {
   const posts = await getPosts(); // newest first
@@ -18,9 +19,29 @@ const { post, older, newer } = Astro.props;
 const { Content } = await render(post);
 const d = post.data;
 const minutes = readingMinutes(post.body);
+const url = `${SITE}/blog/${post.id}/`;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": `${url}#post`,
+  headline: d.title,
+  description: d.description,
+  url,
+  mainEntityOfPage: url,
+  datePublished: d.date.toISOString(),
+  dateModified: (d.updated ?? d.date).toISOString(),
+  author: { "@type": "Person", name: d.author },
+  publisher: organization,
+  image: { "@type": "ImageObject", url: `${url}og.png`, width: 1200, height: 630 },
+  keywords: d.tags.join(", ") || undefined,
+  wordCount: post.body?.split(/\s+/).filter(Boolean).length,
+  inLanguage: "en-US",
+  isPartOf: { "@type": "Blog", name: "ReceiptWhere blog", url: `${SITE}/blog/` },
+};
 ---
 <Base title={`${d.title}: ReceiptWhere`} description={d.description} path={`/blog/${post.id}/`} current="blog"
-  ogImage={`/blog/${post.id}/og.png`} ogType="article" published={d.date} modified={d.updated} tags={d.tags} noindex={d.draft}>
+  ogImage={`/blog/${post.id}/og.png`} ogType="article" published={d.date} modified={d.updated} tags={d.tags} noindex={d.draft}
+  jsonLd={jsonLd}>
   <article class="post">
     <header class="post-hero">
       <div class="post-col">
