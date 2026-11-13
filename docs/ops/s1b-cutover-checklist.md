@@ -46,17 +46,36 @@ Cloudflare Pages serves an apex custom domain only from a full-setup Cloudflare 
 - [ ] www redirects to the apex.
 - [ ] Re-enable DNSSEC in Cloudflare; add the new DS at Spaceship.
 
-## Right after cutover: make the repo private (Chat, 2026-11-12)
-- [ ] Set `dutchdogd/receiptwhere-site` to private.
-      Note: on GitHub Free, a private repo cannot serve GitHub Pages, so this also
-      ends the GitHub Pages rollback path. Do it only once the cutover has held, or
-      after confirming GitHub Pro (Pages from private repos).
-- [ ] Cloudflare deploys still work from the private repo: push a branch, the
-      `preview` job deploys and `tools/check_live.py` passes; then a `main` deploy
-      after environment approval. (Deploys use the API token from Actions secrets,
-      so repo visibility should not matter; this proves it.)
-- [ ] Required status check `checks` still reports on PRs.
+## After cutover, in this order (Chat, 2026-11-12)
 
-## Rollback
-Point the nameservers back to Spaceship (records there untouched until the switch has
-held). GitHub Pages stays configured until a clean period has passed.
+### 1. Seven-day clean period: GitHub Pages stays available as the DNS rollback
+- [ ] **Before `site-astro` is merged into `main`:** create branch `pages-frozen` at
+      the last GitHub Pages commit on `main` and switch the GitHub Pages source to
+      `pages-frozen` (root). Otherwise, once `main` holds the Astro project, GitHub
+      Pages would serve the source tree instead of the site, and a DNS rollback would
+      land on it. Verify receiptwhere.com still serves the same bytes (check_live).
+- [ ] Spaceship records stay untouched for the whole period.
+- [ ] Daily for 7 days: `tools/check_live.py https://receiptwhere.com` passes; mail
+      to receipt@ and a sign-in email still arrive. Any failure: decide on rollback.
+
+### 2. Turn off GitHub Pages (day 8 or later, only after a clean period)
+- [ ] Settings → Pages: unpublish; remove the custom domain there.
+- [ ] Delete the `_github-pages-challenge-*` TXT record in Cloudflare DNS (if no
+      longer needed) and the `pages-frozen` branch.
+- [ ] receiptwhere.com still served by Cloudflare (check_live passes).
+
+### 3. Make the repo private
+- [ ] Set `dutchdogd/receiptwhere-site` to private. (This also takes the earlier
+      commits that held the co-founder's name out of public view.)
+
+### 4. Verify CI and deploys from the private repo
+- [ ] Push a branch: the `preview` job deploys and `tools/check_live.py --preview` passes.
+- [ ] A `main` deploy after `production` environment approval succeeds and
+      `tools/check_live.py https://receiptwhere.com` passes.
+- [ ] The required status check `checks` still reports on PRs into `main`.
+
+## Rollback (during the 7-day period only)
+Point the nameservers back to Spaceship. Its records are untouched and still point
+the apex and `www` at GitHub Pages, which serves the frozen pre-cutover site from
+`pages-frozen`. After GitHub Pages is turned off (step 2), rollback means
+redeploying a previous Cloudflare Pages deployment instead.
