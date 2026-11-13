@@ -1,0 +1,19 @@
+---
+// One Features section: a mono label + heading on the left, items on the right.
+interface Item { title: string; text: string }
+interface Props { id: string; label: string; title: string; items: Item[]; panel?: boolean }
+const { id, label, title, items, panel = false } = Astro.props;
+---
+<section class:list={["section", "section-tight", { "section-panel": panel }]} aria-labelledby={id}>
+  <div class="wrap feature-group">
+    <div class="feature-head">
+      <span class="mono-label">{label}</span>
+      <h2 id={id}>{title}</h2>
+    </div>
+    <ul class="feature-items">
+      {items.map((i) => (
+        <li><h3>{i.title}</h3><p>{i.text}</p></li>
+      ))}
+    </ul>
+  </div>
+</section>

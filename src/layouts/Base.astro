@@ -4,10 +4,19 @@
 import "../styles/site.css";
 import Mark from "../components/Mark.astro";
 
-interface Props { title: string; description: string; path: string }
-const { title, description, path } = Astro.props;
+type Page = "home" | "features" | "pricing" | "about";
+interface Props { title: string; description: string; path: string; current?: Page }
+const { title, description, path, current } = Astro.props;
 const canonical = new URL(path, Astro.site).href;
 const year = new Date().getFullYear();
+
+// No "Sign in" until app.receiptwhere.com exists (Chat, S2).
+const nav: { href: string; label: string; page?: Page }[] = [
+  { href: "/#how", label: "How it works" },
+  { href: "/features/", label: "Features", page: "features" },
+  { href: "/pricing/", label: "Pricing", page: "pricing" },
+  { href: "/about/", label: "About", page: "about" },
+];
 ---
 <!doctype html>
 <html lang="en">
@@ -17,6 +26,7 @@ const year = new Date().getFullYear();
 <title>{title}</title>
 <meta name="description" content={description}>
 <link rel="canonical" href={canonical}>
+<meta name="theme-color" content="#12233D">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -28,7 +38,11 @@ const year = new Date().getFullYear();
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <nav class="wrap" aria-label="Main">
-    <a class="brand" href="/"><Mark size={32} /><span>ReceiptWhere</span></a>
+    <a class="brand" href="/" aria-current={current === "home" ? "page" : undefined}><Mark size={32} /><span>ReceiptWhere</span></a>
+    {nav.map((item) => (
+      <a href={item.href} aria-current={item.page && item.page === current ? "page" : undefined}>{item.label}</a>
+    ))}
+    <a class="btn btn-amber btn-small" href="/#get">Get the app</a>
   </nav>
 </header>
 <main id="main">

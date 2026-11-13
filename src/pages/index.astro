@@ -1,15 +1,134 @@
 ---
-// S1a placeholder: the current holding page's content in the new layout.
-// Replaced by the Home design in S2.
+// Home, from docs/design/project/Main.dc.html. The receipt is a synthetic example.
 import Base from "../layouts/Base.astro";
-import Mark from "../components/Mark.astro";
+import PlayComingSoon from "../components/PlayComingSoon.astro";
+
+const why = [
+  { title: "The shoebox", text: "Paper fades, emails get buried, and the receipt you need is never the one on top. ReceiptWhere keeps every one in a single place, readable and searchable." },
+  { title: "Tax time", text: "Self-employed, side business, or just keeping records: hand your tax preparer one clean file instead of a bag of paper." },
+  { title: "Returns and warranties", text: "Find the receipt in seconds by store, amount or date, and show it at the counter." },
+];
+const steps = [
+  { label: "Step 1", title: "Capture", text: "Scan a paper receipt, import photos and PDFs, share from any app, or forward email receipts to your own ReceiptWhere address." },
+  { label: "Step 2", title: "ReceiptWhere reads and checks", text: "Store, date, total, tax and payment method are read automatically, then checked against the receipt's own numbers. Anything uncertain lands in \"To check\"." },
+  { label: "Step 3", title: "Find, total, export", text: "Search any receipt, see totals by month, store, card or project, and export a clean file for your tax preparer or bookkeeper." },
+];
+const checks = [
+  "Total checked against subtotal plus tax, and against the payment",
+  "Refunds recognised and shown as money back",
+  "The same receipt sent twice is spotted, so nothing counts double",
+  "A notification when a receipt needs a quick check",
+  "Your original image is always kept, next to what was read",
+];
+const who = [
+  { title: "Self-employed and freelancers", text: "Business expenses kept apart with projects, ready for your Schedule C." },
+  { title: "Contractors and trades", text: "Material receipts per job, so nothing gets lost between the store and the invoice." },
+  { title: "Households", text: "Warranties, returns and big purchases, always one search away." },
+  { title: "Bookkeepers and tax preparers", text: "Clients who send you checked records instead of a shoebox. Tools for you are coming." },
+];
 ---
-<Base title="ReceiptWhere" description="ReceiptWhere. Every Receipt. Right Where You Need It. In beta." path="/">
-  <section class="holding">
-    <Mark size={96} label="ReceiptWhere mark" />
-    <h1>Receipt<span class="where">Where</span></h1>
-    <p class="tagline">Every Receipt. Right Where You Need It.</p>
-    <p class="beta">In beta.</p>
-    <p class="contact"><a href="mailto:receipt@receiptwhere.com">receipt@receiptwhere.com</a></p>
+<Base title="ReceiptWhere: every receipt, read and checked" description="Snap it, share it or forward it. ReceiptWhere reads the store, date, total, tax and how you paid, checks its own reading against the receipt, and tells you when something needs a look." path="/" current="home">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-text">
+        <p class="eyebrow eyebrow-amber">The shoebox that reads itself</p>
+        <h1>Every receipt. Read, checked, and ready when you need it.</h1>
+        <p class="intro">Snap it, share it or forward it. ReceiptWhere reads the store, date, total, tax and how you paid, checks its own reading against the receipt, and tells you when something needs a look.</p>
+        <div class="actions">
+          <PlayComingSoon />
+          <span class="soon">iPhone version coming soon</span>
+        </div>
+        <p class="note">Free for up to 50 receipts a month. No card needed.</p>
+      </div>
+      <div class="hero-art">
+        <div class="receipt" role="img" aria-label="A receipt as ReceiptWhere reads it, with the total checked against the card payment">
+          <div class="center store">HARDWARE CO. #214</div>
+          <div class="center when">11/06/2026 10:04 AM</div>
+          <div class="rule"></div>
+          <div class="row"><span>WOOD SCREWS</span><span>8.97</span></div>
+          <div class="row"><span>PAINT ROLLER</span><span>12.49</span></div>
+          <div class="row"><span>DROP CLOTH</span><span>6.99</span></div>
+          <div class="rule"></div>
+          <div class="row"><span>SUBTOTAL</span><span>28.45</span></div>
+          <div class="row"><span>TAX</span><span>2.96</span></div>
+          <div class="row hl total"><span>TOTAL</span><span>31.41</span></div>
+          <div class="row hl"><span>VISA ••4242</span><span>31.41</span></div>
+          <div class="checked">Checked: subtotal + tax and the card payment both match the total.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="why">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Why ReceiptWhere</p>
+        <h2 id="why">Receipts are proof. Most of them end up in a drawer.</h2>
+      </div>
+      <div class="cards">
+        {why.map((c) => (<div class="card"><h3>{c.title}</h3><p>{c.text}</p></div>))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-panel" aria-labelledby="how">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">How it works</p>
+        <h2 id="how">Three steps. You only do the first.</h2>
+      </div>
+      <ol class="cards steps">
+        {steps.map((s) => (
+          <li class="card card-white"><span class="mono-label">{s.label}</span><h3>{s.title}</h3><p>{s.text}</p></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="trust">
+    <div class="wrap split">
+      <div class="split-text">
+        <p class="eyebrow">What makes it different</p>
+        <h2 id="trust">It tells you when it isn't sure.</h2>
+        <p class="lead">Most apps read a receipt and hope for the best. ReceiptWhere checks every total against what the receipt itself proves: the items, the tax, and the payment. When the numbers don't agree, or a faded digit could be read two ways, it asks you instead of guessing. One tap fixes it, and your correction is kept.</p>
+      </div>
+      <ul class="checklist">
+        {checks.map((c) => (<li><span class="tick" aria-hidden="true">✓</span><span>{c}</span></li>))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section-panel" aria-labelledby="who">
+    <div class="wrap">
+      <h2 id="who">Made for people who keep their own records</h2>
+      <div class="cols">
+        {who.map((c) => (<div class="col"><h3>{c.title}</h3><p>{c.text}</p></div>))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="privacy">
+    <div class="wrap">
+      <h2 id="privacy">Your receipts stay yours</h2>
+      <div class="promises">
+        <p><strong>We don't sell your data</strong> and show no ads.</p>
+        <p><strong>Stored in North America,</strong> in private storage.</p>
+        <p><strong>Card and account numbers</strong> are cut to the last four digits in the text we store and search. Your original image stays unchanged, as your record.</p>
+        <p><strong>Delete anytime:</strong> one receipt or your whole account, right in the app.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-navy cta" id="get" aria-labelledby="cta">
+    <div class="wrap">
+      <div class="cta-text">
+        <h2 id="cta">Empty the shoebox.</h2>
+        <p class="sub">Free for up to 50 receipts a month. Upgrade when you need more.</p>
+      </div>
+      <div class="actions">
+        <PlayComingSoon />
+        <a class="btn btn-ghost-light" href="/pricing/">See pricing</a>
+      </div>
+    </div>
   </section>
 </Base>
