@@ -26,6 +26,10 @@ jobs:
   checks:
     name: checks
     runs-on: ubuntu-24.04
+    env:
+      # Draft blog posts only in builds that deploy as previews (pushes to branches
+      # other than main). main and PRs into main build exactly what production gets.
+      SITE_DRAFTS: ${{ (github.event_name == 'push' && github.ref != 'refs/heads/main') && '1' || '0' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -67,6 +71,9 @@ jobs:
 
       - name: Protected files byte-identical (public/ and dist/)
         run: python tools/check_protected.py
+
+      - name: No draft posts in a production build
+        run: python tools/check_drafts.py
 
       - name: No blocked name anywhere in the tree or the build
         run: python tools/check_names.py

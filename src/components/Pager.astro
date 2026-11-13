@@ -1,0 +1,12 @@
+---
+import { pageUrl } from "../lib/blog";
+interface Props { current: number; total: number }
+const { current, total } = Astro.props;
+---
+{total > 1 && (
+  <nav class="pager" aria-label="Blog pages">
+    {current > 1 ? <a href={pageUrl(current - 1)} rel="prev">← Newer posts</a> : <span></span>}
+    <span class="pager-pos">Page {current} of {total}</span>
+    {current < total ? <a href={pageUrl(current + 1)} rel="next">Older posts →</a> : <span></span>}
+  </nav>
+)}

@@ -1,0 +1,62 @@
+---
+// One blog post: date, author, reading time, tags, previous/next.
+import type { GetStaticPaths } from "astro";
+import { render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { formatDate, getPosts, readingMinutes, tagSlug, type Post } from "../../lib/blog";
+
+export const getStaticPaths = (async () => {
+  const posts = await getPosts(); // newest first
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    // "Previous" is the older post, "Next" the newer one.
+    props: { post, older: posts[i + 1] as Post | undefined, newer: posts[i - 1] as Post | undefined },
+  }));
+}) satisfies GetStaticPaths;
+
+const { post, older, newer } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+const minutes = readingMinutes(post.body);
+---
+<Base title={`${d.title}: ReceiptWhere`} description={d.description} path={`/blog/${post.id}/`} current="blog"
+  ogImage={`/blog/${post.id}/og.png`} ogType="article" published={d.date} modified={d.updated} tags={d.tags} noindex={d.draft}>
+  <article class="post">
+    <header class="post-hero">
+      <div class="post-col">
+        <p class="eyebrow eyebrow-amber"><a href="/blog/">Blog</a></p>
+        {d.draft && <p class="draft-note">Draft: shown on previews only, never published.</p>}
+        <h1>{d.title}</h1>
+        <p class="post-lede">{d.description}</p>
+        <p class="post-meta post-meta-light">
+          <span>{d.author}</span>
+          <span aria-hidden="true">·</span>
+          <time datetime={d.date.toISOString()}>{formatDate(d.date)}</time>
+          {d.updated && <><span aria-hidden="true">·</span><span>Updated <time datetime={d.updated.toISOString()}>{formatDate(d.updated)}</time></span></>}
+          <span aria-hidden="true">·</span>
+          <span>{minutes} min read</span>
+        </p>
+      </div>
+    </header>
+    <div class="post-body">
+      <div class="post-col prose">
+        <Content />
+      </div>
+    </div>
+    <footer class="post-foot">
+      <div class="post-col">
+        {d.tags.length > 0 && (
+          <ul class="tags" aria-label="Tags">
+            {d.tags.map((t) => <li><a href={`/blog/tags/${tagSlug(t)}/`}>{t}</a></li>)}
+          </ul>
+        )}
+        {(older || newer) && (
+          <nav class="prevnext" aria-label="More posts">
+            {older ? <a class="prev" href={`/blog/${older.id}/`} rel="prev"><span>← Previous</span>{older.data.title}</a> : <span></span>}
+            {newer ? <a class="next" href={`/blog/${newer.id}/`} rel="next"><span>Next →</span>{newer.data.title}</a> : <span></span>}
+          </nav>
+        )}
+      </div>
+    </footer>
+  </article>
+</Base>

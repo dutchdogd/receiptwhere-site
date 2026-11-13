@@ -1,0 +1,25 @@
+---
+import type { GetStaticPaths } from "astro";
+import Base from "../../../layouts/Base.astro";
+import PageHero from "../../../components/PageHero.astro";
+import PostList from "../../../components/PostList.astro";
+import { getPosts, tagIndex } from "../../../lib/blog";
+
+export const getStaticPaths = (async () => {
+  const index = tagIndex(await getPosts());
+  return [...index].map(([tag, { name, posts }]) => ({ params: { tag }, props: { name, posts } }));
+}) satisfies GetStaticPaths;
+
+const { name, posts } = Astro.props;
+const { tag } = Astro.params;
+const noindex = posts.every((p) => p.data.draft);
+---
+<Base title={`Posts tagged “${name}”: ReceiptWhere blog`} description={`ReceiptWhere blog posts about ${name}.`} path={`/blog/tags/${tag}/`} current="blog" noindex={noindex}>
+  <PageHero eyebrow="Blog · Tag" title={name} />
+  <section class="section section-tight">
+    <div class="wrap blog-wrap">
+      <PostList posts={posts} />
+      <p class="rss-link"><a href="/blog/">All posts</a></p>
+    </div>
+  </section>
+</Base>

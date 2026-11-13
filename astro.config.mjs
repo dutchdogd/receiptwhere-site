@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import mdx from "@astrojs/mdx";
 
 // Static output only. public/ is copied into dist/ byte for byte; that is how the
 // protected files (see protected.sha256) are carried over unchanged.
@@ -11,6 +12,12 @@ export default defineConfig({
     // Never inline CSS: the CSP is style-src 'self' with no 'unsafe-inline'.
     inlineStylesheets: "never",
   },
+  markdown: {
+    // Shiki writes inline style="" attributes, which the CSP blocks. Code blocks are
+    // styled from site.css instead.
+    syntaxHighlight: false,
+  },
+  integrations: [mdx()],
   // No dev toolbar, no telemetry-style extras in the built site.
   devToolbar: { enabled: false },
 });
