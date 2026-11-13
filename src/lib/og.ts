@@ -41,6 +41,12 @@ type Node = { type: string; props: Record<string, unknown> };
 const h = (type: string, style: Record<string, unknown>, children?: unknown, extra: Record<string, unknown> = {}): Node =>
   ({ type, props: { style, children, ...extra } });
 
+/** Rasterise an SVG string to a square PNG of the given width (app icons). */
+export async function svgPng(svg: string, width: number): Promise<Uint8Array> {
+  await initOnce();
+  return new Resvg(svg, { fitTo: { mode: "width", value: width } }).render().asPng();
+}
+
 export interface OgInput { eyebrow: string; title: string; footer?: string }
 
 export async function ogPng({ eyebrow, title, footer }: OgInput): Promise<Uint8Array> {

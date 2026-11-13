@@ -2,6 +2,15 @@
 // Home, from docs/design/project/Main.dc.html. The receipt is a synthetic example.
 import Base from "../layouts/Base.astro";
 import PlayComingSoon from "../components/PlayComingSoon.astro";
+import { organization, ORG_ID, SITE } from "../lib/site";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    organization,
+    { "@type": "WebSite", "@id": `${SITE}/#website`, name: "ReceiptWhere", url: `${SITE}/`, publisher: { "@id": ORG_ID }, inLanguage: "en-US" },
+  ],
+};
 
 const why = [
   { title: "The shoebox", text: "Paper fades, emails get buried, and the receipt you need is never the one on top. ReceiptWhere keeps every one in a single place, readable and searchable." },
@@ -27,7 +36,7 @@ const who = [
   { title: "Bookkeepers and tax preparers", text: "Clients who send you checked records instead of a shoebox. Tools for you are coming." },
 ];
 ---
-<Base title="ReceiptWhere: every receipt, read and checked" description="Snap it, share it or forward it. ReceiptWhere reads the store, date, total, tax and how you paid, checks its own reading against the receipt, and tells you when something needs a look." path="/" current="home">
+<Base title="ReceiptWhere: every receipt, read and checked" description="Snap it, share it or forward it. ReceiptWhere reads the store, date, total, tax and how you paid, checks its own reading against the receipt, and tells you when something needs a look." path="/" current="home" jsonLd={jsonLd}>
   <section class="hero">
     <div class="wrap">
       <div class="hero-text">

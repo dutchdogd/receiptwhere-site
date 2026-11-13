@@ -31,10 +31,15 @@ def drafts() -> list:
 
 def main() -> int:
     slugs = drafts()
+    # The sitemap never lists a draft, in any build.
+    sm = DIST / "sitemap.xml"
+    sitemap = sm.read_text(encoding="utf-8") if sm.exists() else ""
+    in_sitemap = [s for s in slugs if f"/blog/{s}/" in sitemap]
+    print(f"{'yes' if not in_sitemap else 'NO '}  sitemap.xml lists no draft")
     if os.environ.get("SITE_DRAFTS") == "1":
         print(f"preview build (SITE_DRAFTS=1): drafts allowed ({len(slugs)}: {', '.join(slugs) or '-'})")
-        return 0
-    failed = False
+        return 1 if in_sitemap else 0
+    failed = bool(in_sitemap)
     rss = (DIST / "blog" / "rss.xml").read_text(encoding="utf-8") if (DIST / "blog" / "rss.xml").exists() else ""
     for slug in slugs:
         hits = [p for p in [DIST / "blog" / slug] if p.exists()]
