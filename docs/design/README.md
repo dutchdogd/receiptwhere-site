@@ -17,6 +17,6 @@ Five reference pages: Home (Main), Features, Pricing, About, Sign in. They are *
 - Content width 1160px; side padding `max(16px, 5vw)`; radius 10–18px
 
 ## Open items before going public
-- Founder photo (About), and Matthijs's OK to name Kalpesh Desai publicly.
+- Founder photo (About). The co-founder is not named publicly (decided 2026-11-12).
 - "Get it on Google Play" links: add the Play URL at launch.
 - Copy must stay in line with the published Terms and Privacy (e.g. CSV export is paid-plan, v1.0).
