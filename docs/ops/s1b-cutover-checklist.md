@@ -46,6 +46,17 @@ Cloudflare Pages serves an apex custom domain only from a full-setup Cloudflare 
 - [ ] www redirects to the apex.
 - [ ] Re-enable DNSSEC in Cloudflare; add the new DS at Spaceship.
 
+## Right after cutover: make the repo private (Chat, 2026-11-12)
+- [ ] Set `dutchdogd/receiptwhere-site` to private.
+      Note: on GitHub Free, a private repo cannot serve GitHub Pages, so this also
+      ends the GitHub Pages rollback path. Do it only once the cutover has held, or
+      after confirming GitHub Pro (Pages from private repos).
+- [ ] Cloudflare deploys still work from the private repo: push a branch, the
+      `preview` job deploys and `tools/check_live.py` passes; then a `main` deploy
+      after environment approval. (Deploys use the API token from Actions secrets,
+      so repo visibility should not matter; this proves it.)
+- [ ] Required status check `checks` still reports on PRs.
+
 ## Rollback
 Point the nameservers back to Spaceship (records there untouched until the switch has
 held). GitHub Pages stays configured until a clean period has passed.

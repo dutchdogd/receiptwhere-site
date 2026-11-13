@@ -75,6 +75,9 @@ jobs:
       - name: No draft posts in a production build
         run: python tools/check_drafts.py
 
+      - name: No blocked name anywhere in the tree or the build
+        run: python tools/check_names.py
+
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: dist
