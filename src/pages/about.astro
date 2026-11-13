@@ -1,9 +1,9 @@
 ---
-// About, from docs/design/project/About.dc.html. No photo block and no co-founder
-// name until Matthijs decides: both are switches in src/data/about.ts.
+// About, from docs/design/project/About.dc.html. No photo block until Matthijs
+// decides (switch in src/data/about.ts). The co-founder is not named publicly.
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
-import { founderPhoto, cofounder } from "../data/about";
+import { founderPhoto } from "../data/about";
 
 const principles = [
   { title: "Simple", text: "You capture the receipt. ReceiptWhere does the rest. No categories to maintain, no forms to fill." },
@@ -40,7 +40,7 @@ const principles = [
   <section class="section company" aria-labelledby="company">
     <div class="wrap">
       <h2 id="company">The company</h2>
-      <p>ReceiptWhere is made by DuoNex AI LLC, a small software company in Burien, Washington, founded by Matthijs van Leeuwen{cofounder ? ` and ${cofounder.name} (${cofounder.role})` : ""}. We build tools that turn financial documents into evidence you can rely on, for people who keep their own records and for the bookkeepers and tax preparers who help them.</p>
+      <p>ReceiptWhere is made by DuoNex AI LLC, a small software company in Burien, Washington, founded by Matthijs van Leeuwen. We build tools that turn financial documents into evidence you can rely on, for people who keep their own records and for the bookkeepers and tax preparers who help them.</p>
       <p>Questions or ideas: <a href="mailto:receipt@receiptwhere.com"><strong>receipt@receiptwhere.com</strong></a></p>
     </div>
   </section>

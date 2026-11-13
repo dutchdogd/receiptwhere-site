@@ -16,7 +16,8 @@ after Matthijs relays Chat's OK.
       matches the launch Terms and the app.
 - [ ] Google Play: replace "Coming soon to Google Play" with the real Play link.
 - [ ] "Sign in" in the nav only once app.receiptwhere.com exists.
-- [ ] About: founder photo and co-founder name per Matthijs (src/data/about.ts).
+- [ ] About: founder photo per Matthijs (src/data/about.ts). The co-founder is not
+      named publicly anywhere (pages, meta, structured data).
 - [ ] No draft posts in the production build (CI: tools/check_drafts.py).
 - [ ] S4 SEO basics done (robots.txt, sitemap, 404).
 - [ ] S1b cutover done (docs/ops/s1b-cutover-checklist.md).

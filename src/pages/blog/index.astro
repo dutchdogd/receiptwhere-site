@@ -1,0 +1,19 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import PostList from "../../components/PostList.astro";
+import Pager from "../../components/Pager.astro";
+import { getPosts, pages } from "../../lib/blog";
+
+const all = pages(await getPosts());
+---
+<Base title="Blog: ReceiptWhere" description="Notes on receipts, record keeping and how ReceiptWhere reads and checks what a receipt proves." path="/blog/" current="blog">
+  <PageHero eyebrow="Blog" title="Receipts, records, and what they prove." />
+  <section class="section section-tight">
+    <div class="wrap blog-wrap">
+      <PostList posts={all[0]} />
+      <Pager current={1} total={all.length} />
+      <p class="rss-link"><a href="/blog/rss.xml">RSS feed</a></p>
+    </div>
+  </section>
+</Base>

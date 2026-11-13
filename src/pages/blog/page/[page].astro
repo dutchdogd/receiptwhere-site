@@ -1,0 +1,28 @@
+---
+// /blog/page/2/ onwards. Page 1 is /blog/.
+import type { GetStaticPaths } from "astro";
+import Base from "../../../layouts/Base.astro";
+import PageHero from "../../../components/PageHero.astro";
+import PostList from "../../../components/PostList.astro";
+import Pager from "../../../components/Pager.astro";
+import { getPosts, pages, pageUrl } from "../../../lib/blog";
+
+export const getStaticPaths = (async () => {
+  const all = pages(await getPosts());
+  return all.slice(1).map((posts, i) => ({
+    params: { page: String(i + 2) },
+    props: { posts, current: i + 2, total: all.length },
+  }));
+}) satisfies GetStaticPaths;
+
+const { posts, current, total } = Astro.props;
+---
+<Base title={`Blog, page ${current}: ReceiptWhere`} description="Older posts from the ReceiptWhere blog." path={pageUrl(current)} current="blog">
+  <PageHero eyebrow="Blog" title="Receipts, records, and what they prove." />
+  <section class="section section-tight">
+    <div class="wrap blog-wrap">
+      <PostList posts={posts} />
+      <Pager current={current} total={total} />
+    </div>
+  </section>
+</Base>
