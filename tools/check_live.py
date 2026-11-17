@@ -13,9 +13,9 @@ With --preview: X-Robots-Tag contains noindex.
 
 The rest depends on the stage (site.stage, or --stage=prelaunch|launch to check a
 deployment built from another commit). launch: robots.txt, sitemap, manifest,
-icons, the styled 404, trailing-slash redirects. prelaunch: / is the holding page
-byte for byte, the full-site paths (S2 pages, blog, sitemap, robots) answer 404, and
-a missing page answers 404 with the pre-launch 404 page.
+icons, the styled 404, trailing-slash redirects. prelaunch: / and /robots.txt are
+prelaunch/ byte for byte, the full-site paths (S2 pages, blog, sitemap) answer 404,
+and a missing page answers 404 with the pre-launch 404 page.
 
 Prints the security headers as served; exits 1 on any failure.
 Standard library only.
@@ -92,8 +92,11 @@ def main() -> int:
         print("-- pre-launch build")
         body, _ = fetch(base + "/")
         check(body == (PRELAUNCH / "index.html").read_bytes(), "/ is the holding page, byte for byte")
+        body, _ = fetch(base + "/robots.txt")
+        check(body == (PRELAUNCH / "robots.txt").read_bytes(),
+              "/robots.txt is prelaunch/robots.txt (not a Cloudflare-managed one)")
         for path in ["/features/", "/pricing/", "/about/", "/blog/", "/blog/rss.xml",
-                     "/sitemap.xml", "/robots.txt", "/site.webmanifest", "/og/default.png",
+                     "/sitemap.xml", "/site.webmanifest", "/og/default.png",
                      "/this-page-does-not-exist/"]:
             try:
                 fetch(base + path)

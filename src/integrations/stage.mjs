@@ -3,10 +3,12 @@
 // prelaunch: after the build, dist/ is cut down to exactly the files live today on
 // GitHub Pages: the protected files (protected.sha256), the self-hosted fonts, the
 // holding page (prelaunch/index.html, byte-identical to main's index.html), plus
-// _headers and a plain 404 page (prelaunch/404.html; without a 404.html, Cloudflare
-// Pages would answer unknown paths with the home page and status 200). Everything
-// else the build produced (S2 pages, blog, sitemap, robots, OG images, icons) is
-// removed. It is an allowlist: a new page cannot slip into a pre-launch build.
+// _headers, a plain 404 page (prelaunch/404.html; without a 404.html, Cloudflare
+// Pages would answer unknown paths with the home page and status 200) and a
+// minimal robots.txt (prelaunch/robots.txt; without one, Cloudflare serves a managed
+// robots.txt of its own). Everything else the build produced (S2 pages, blog,
+// sitemap, OG images, icons) is removed. It is an allowlist: a new page cannot slip
+// into a pre-launch build.
 //
 // launch: the full site, unchanged.
 //
@@ -18,6 +20,8 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const STAGES = ["prelaunch", "launch"];
+// Files a pre-launch build takes from prelaunch/ (they replace the build's own).
+const PRELAUNCH_OWN = ["index.html", "404.html", "robots.txt"];
 
 export function readStage() {
   const stage = fs.readFileSync(path.join(ROOT, "site.stage"), "utf8").trim();
@@ -35,7 +39,7 @@ export function prelaunchFiles() {
     .filter((line) => line.trim())
     .map((line) => line.trim().split(/\s+/)[1]);
   const fonts = fs.readdirSync(path.join(ROOT, "public", "fonts")).map((f) => `fonts/${f}`);
-  return new Set([...manifest, ...fonts, "_headers", "index.html", "404.html"]);
+  return new Set([...manifest, ...fonts, "_headers", ...PRELAUNCH_OWN]);
 }
 
 function walk(dir, base = dir) {
@@ -64,7 +68,7 @@ export default function stage() {
         logger.info(`site.stage: ${current}`);
         if (current !== "prelaunch") return;
         const out = fileURLToPath(dir);
-        for (const name of ["index.html", "404.html"]) {
+        for (const name of PRELAUNCH_OWN) {
           fs.copyFileSync(path.join(ROOT, "prelaunch", name), path.join(out, name));
         }
         const keep = prelaunchFiles();

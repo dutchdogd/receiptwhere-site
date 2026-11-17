@@ -4,8 +4,8 @@
 site.stage holds "prelaunch" or "launch" (see src/integrations/stage.mjs).
 
 prelaunch: dist/ holds exactly the files live today, nothing more and nothing less:
-  the protected files (protected.sha256), public/fonts/*, _headers, index.html and
-  404.html; index.html and 404.html equal prelaunch/ byte for byte.
+  the protected files (protected.sha256), public/fonts/*, _headers, and index.html,
+  404.html and robots.txt, which equal prelaunch/ byte for byte.
 launch: the full site is built (the home page is not the holding page; the S2
   pages, blog and sitemap exist).
 
@@ -20,6 +20,8 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 PRELAUNCH = ROOT / "prelaunch"
 STAGES = ("prelaunch", "launch")
+# Files a pre-launch build takes from prelaunch/ (same list as src/integrations/stage.mjs).
+PRELAUNCH_OWN = ("index.html", "404.html", "robots.txt")
 
 
 def stage() -> str:
@@ -33,7 +35,7 @@ def prelaunch_files() -> set:
     rows = (ROOT / "protected.sha256").read_text(encoding="utf-8").splitlines()
     files = {line.split(maxsplit=1)[1].strip() for line in rows if line.strip()}
     files |= {f"fonts/{p.name}" for p in (ROOT / "public" / "fonts").iterdir() if p.is_file()}
-    return files | {"_headers", "index.html", "404.html"}
+    return files | {"_headers"} | set(PRELAUNCH_OWN)
 
 
 def main() -> int:
@@ -61,8 +63,10 @@ def main() -> int:
         check(not missing, "dist/ holds the whole pre-launch set"
               + "".join(f"\n       missing: {p}" for p in missing))
         check(home == holding, "dist/index.html is the holding page (prelaunch/index.html)")
-        check((DIST / "404.html").read_bytes() == (PRELAUNCH / "404.html").read_bytes(),
-              "dist/404.html is prelaunch/404.html")
+        for name in PRELAUNCH_OWN[1:]:
+            check((DIST / name).is_file()
+                  and (DIST / name).read_bytes() == (PRELAUNCH / name).read_bytes(),
+                  f"dist/{name} is prelaunch/{name}")
     else:
         check(home != holding, "dist/index.html is the full home page, not the holding page")
         for rel in ["features/index.html", "pricing/index.html", "about/index.html",

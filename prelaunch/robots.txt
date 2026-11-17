@@ -1,0 +1,5 @@
+# receiptwhere.com (pre-launch): everything may be crawled. Without this file,
+# Cloudflare would serve a managed robots.txt of its own. Previews (*.pages.dev) are
+# kept out of search by their X-Robots-Tag: noindex header, not by this file.
+User-agent: *
+Allow: /
