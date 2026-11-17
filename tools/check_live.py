@@ -11,6 +11,12 @@ exactly one CSP (no comma-joined duplicates); / and /terms/ forbid all scripts;
 No page sets a cookie (no Set-Cookie header, e.g. from Bot Fight Mode).
 With --preview: X-Robots-Tag contains noindex.
 
+The rest depends on the stage (site.stage, or --stage=prelaunch|launch to check a
+deployment built from another commit). launch: robots.txt, sitemap, manifest,
+icons, the styled 404, trailing-slash redirects. prelaunch: / is the holding page
+byte for byte, the full-site paths (S2 pages, blog, sitemap, robots) answer 404, and
+a missing page answers 404 with the pre-launch 404 page.
+
 Prints the security headers as served; exits 1 on any failure.
 Standard library only.
 """
@@ -24,6 +30,7 @@ import urllib.request
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from check_protected import manifest, signin_script_hash  # noqa: E402
+from check_stage import PRELAUNCH, STAGES, stage  # noqa: E402
 
 SHOW = ["Content-Type", "Content-Security-Policy", "Strict-Transport-Security",
         "X-Content-Type-Options", "Referrer-Policy", "Permissions-Policy",
@@ -39,6 +46,12 @@ def fetch(url: str):
 def main() -> int:
     base = sys.argv[1].rstrip("/")
     preview = "--preview" in sys.argv[2:]
+    current = stage()
+    for arg in sys.argv[2:]:
+        if arg.startswith("--stage="):
+            current = arg.split("=", 1)[1]
+            if current not in STAGES:
+                raise SystemExit(f"--stage must be one of {', '.join(STAGES)}")
     failed = False
 
     def check(ok: bool, what: str):
@@ -46,7 +59,7 @@ def main() -> int:
         failed |= not ok
         print(f"{'yes' if ok else 'NO '}  {what}")
 
-    print(f"== {base}")
+    print(f"== {base}  (stage: {current})")
     for digest, rel in manifest():
         path = "/" + (rel[: -len("index.html")] if rel.endswith("index.html") else rel)
         body, headers = fetch(base + path)
@@ -74,6 +87,22 @@ def main() -> int:
             check("script-src 'none'" in csp, f"{path} script-src 'none'")
         if preview:
             check("noindex" in (headers.get("X-Robots-Tag") or ""), f"{path} X-Robots-Tag noindex")
+
+    if current == "prelaunch":
+        print("-- pre-launch build")
+        body, _ = fetch(base + "/")
+        check(body == (PRELAUNCH / "index.html").read_bytes(), "/ is the holding page, byte for byte")
+        for path in ["/features/", "/pricing/", "/about/", "/blog/", "/blog/rss.xml",
+                     "/sitemap.xml", "/robots.txt", "/site.webmanifest", "/og/default.png",
+                     "/this-page-does-not-exist/"]:
+            try:
+                fetch(base + path)
+                check(False, f"{path} answers 404")
+            except urllib.error.HTTPError as e:
+                page = e.read()
+                check(e.code == 404 and page == (PRELAUNCH / "404.html").read_bytes(),
+                      f"{path} answers {e.code} with the pre-launch 404 page")
+        return 1 if failed else 0
 
     # S4: crawl files, manifest, 404, canonical trailing slash.
     print("-- SEO basics")

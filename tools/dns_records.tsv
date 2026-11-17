@@ -1,0 +1,19 @@
+# receiptwhere.com DNS inventory for tools/dns_diff.py (docs/ops/s1b-dns-plan.md).
+# Names (relative to the zone; @ = apex), types and record counts only. No values:
+# dns_diff.py compares the values in memory and never prints them.
+# name	type	count	web (replaced by Pages custom domains at switch 2)
+@	A	4	web
+www	CNAME	1	web
+@	MX	2
+@	TXT	2
+spacemail._domainkey	TXT	1
+_autodiscover._tcp	SRV	1
+_dmarc	TXT	1
+api	CNAME	1
+_railway-verify.api	TXT	1
+in	MX	2
+in	TXT	1
+k1._domainkey.in	TXT	1
+email.in	CNAME	1
+_dmarc.in	TXT	1
+_github-pages-challenge-dutchdogd	TXT	1

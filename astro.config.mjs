@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
+import stage from "./src/integrations/stage.mjs";
 
 // Static output only. public/ is copied into dist/ byte for byte; that is how the
 // protected files (see protected.sha256) are carried over unchanged.
@@ -17,7 +18,9 @@ export default defineConfig({
     // styled from site.css instead.
     syntaxHighlight: false,
   },
-  integrations: [mdx()],
+  // stage() must stay last: in a pre-launch build it cuts dist/ down to the files
+  // live today (see src/integrations/stage.mjs and site.stage).
+  integrations: [mdx(), stage()],
   // No dev toolbar, no telemetry-style extras in the built site.
   devToolbar: { enabled: false },
 });
