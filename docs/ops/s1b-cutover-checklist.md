@@ -1,7 +1,7 @@
-# S1b cutover checklist (draft, on hold)
+# S1b cutover checklist
 
-Status: ON HOLD until the Spaceship zone export is reviewed and the migration plan
-is approved. No DNS change without Matthijs relaying Chat's OK.
+Status: plan approved (docs/ops/s1b-dns-plan.md, option B; dates there). No DNS
+change without Matthijs relaying Chat's OK for that step.
 
 ## Requirement
 Cloudflare Pages serves an apex custom domain only from a full-setup Cloudflare zone
@@ -12,14 +12,15 @@ Cloudflare Pages serves an apex custom domain only from a full-setup Cloudflare 
 - [ ] Zone added to Cloudflare (not yet active); every record copied; diff
       Spaceship vs Cloudflare = empty (names, types, values matched yes/no; key
       values never posted in chat).
-- [ ] Mail records DNS-only (grey cloud): apex MX/SPF/DKIM (Spacemail),
-      `in` MX/SPF, `k1._domainkey.in`, `email.in`, `_dmarc`, `_dmarc.in`.
-- [ ] `api` (Railway) DNS-only; keep `_railway-verify.api`, Google site verification,
+- [ ] **Every record DNS-only (grey cloud)** after the import, including `api` and
+      `email.in`; `tools/dns_diff.py` reports it per record.
+- [ ] Keep `_railway-verify.api`, Google site verification,
       decide on `_github-pages-challenge-*`.
 - [ ] TTLs lowered (300 s) at Spaceship at least one old-TTL period ahead.
 - [ ] **DNSSEC: remove the DS record at Spaceship ≥ 24 h before the nameserver switch**
       (DS TTL 86400 s); confirm resolvers no longer return AD for the zone.
 - [ ] Cloudflare zone settings, before activation:
+  - [ ] Email Routing: OFF (it would replace the MX records)
   - [ ] Email Address Obfuscation: OFF (would rewrite mailto links and inject a script)
   - [ ] Rocket Loader: OFF
   - [ ] Web Analytics / RUM auto-injection: OFF
@@ -29,9 +30,13 @@ Cloudflare Pages serves an apex custom domain only from a full-setup Cloudflare 
       to the publish date in a final commit; merged together with the cutover.
 - [ ] `GITHUB_PAGES_SERVES_MAIN` set to `false` in the same change that merges
       `site-astro` into `main`; then add `checks` as a required status check.
+- [ ] `site.stage` on `main` is `prelaunch` (the website switch publishes only the
+      pages live today; the launch flip is a separate commit on 15 Dec).
 
-## Window (quiet hour)
+## Switch 1, nameservers (~Thu 3 Dec, quiet hour)
 - [ ] Switch nameservers at Spaceship to Cloudflare's.
+
+## Switch 2, website (~Mon 7 Dec, on Chat's OK)
 - [ ] Add `receiptwhere.com` (and `www` → apex redirect) as Pages custom domains.
 
 ## Checks after (yes/no each)
