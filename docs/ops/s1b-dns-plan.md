@@ -48,9 +48,9 @@ DNSSEC: **on**. Two DS records at the .com parent (TTL 86400), signed zone (AD=t
 - The screen's counts (5 + 16) match the 21 records listed.
 - Every record the public lookup found is in the export; the export adds one the
   lookup never queried (`_autodiscover._tcp` SRV), confirmed on launch1 (TTL 300).
-- Open: Matthijs to confirm no other Spaceship features act on the domain
-  (URL redirect / domain forwarding, email forwarding), since those don't show on
-  the DNS screen.
+- Closed (Matthijs, 2026-11-17): no URL redirect, domain forwarding or email
+  forwarding is configured at Spaceship. The 21 records are the complete set to
+  migrate.
 - The export lost the type and TTL columns for the second group; types and TTLs
   above come from the authoritative server.
 
