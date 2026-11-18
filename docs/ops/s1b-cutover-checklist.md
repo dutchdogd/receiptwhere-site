@@ -23,6 +23,9 @@ Cloudflare Pages serves an apex custom domain only from a full-setup Cloudflare 
   - [ ] Email Routing: OFF (it would replace the MX records)
   - [ ] Managed robots.txt: OFF (as soon as the zone exists). The site ships its own
         robots.txt; `tools/check_live.py` keeps verifying its bytes.
+  - [ ] Network Error Logging: OFF in the zone's network settings, if the plan
+        allows it. `tools/check_live.py` reports whether the NEL / Report-To headers
+        are gone. Record the outcome in docs/ops/s1b-dns-plan.md (section 6).
   - [ ] Email Address Obfuscation: OFF (would rewrite mailto links and inject a script)
   - [ ] Rocket Loader: OFF
   - [ ] Web Analytics / RUM auto-injection: OFF

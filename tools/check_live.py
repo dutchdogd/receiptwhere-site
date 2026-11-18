@@ -10,6 +10,7 @@ exactly one CSP (no comma-joined duplicates); / and /terms/ forbid all scripts;
 /signin/ allows only its own script hash and sends Referrer-Policy: no-referrer.
 No page sets a cookie (no Set-Cookie header, e.g. from Bot Fight Mode).
 With --preview: X-Robots-Tag contains noindex.
+Reports (without failing) whether Cloudflare's NEL / Report-To headers are present.
 
 The rest depends on the stage (site.stage, or --stage=prelaunch|launch to check a
 deployment built from another commit). launch: robots.txt, sitemap, manifest,
@@ -70,8 +71,11 @@ def main() -> int:
                   f"content-type {path}: {ctype}")
 
     want = f"'{signin_script_hash()}'"
+    nel_paths = []
     for path in ["/", "/terms/", "/privacy/", "/delete-account/", "/signin/"]:
         _, headers = fetch(base + path)
+        if headers.get("NEL") or headers.get("Report-To"):
+            nel_paths.append(path)
         print(f"-- {path}")
         for name in SHOW:
             for value in headers.get_all(name) or ["(absent)"]:
@@ -87,6 +91,10 @@ def main() -> int:
             check("script-src 'none'" in csp, f"{path} script-src 'none'")
         if preview:
             check("noindex" in (headers.get("X-Robots-Tag") or ""), f"{path} X-Robots-Tag noindex")
+
+    # Cloudflare's Network Error Logging headers. Reported, not failed: whether the
+    # zone can turn them off is recorded in docs/ops/s1b-dns-plan.md.
+    print(f"info NEL / Report-To headers present: {'yes on ' + ' '.join(nel_paths) if nel_paths else 'no'}")
 
     if current == "prelaunch":
         print("-- pre-launch build")

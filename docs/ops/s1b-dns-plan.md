@@ -95,8 +95,9 @@ This keeps mail, the API and sign-in links independent of the website switch, an
 the website switch independent of the launch.
 
 ## 3. Timeline (dates per Chat, 2026-11-17)
+- **By Fri 27 Nov:** the exact clicks for the DS removal go to Matthijs.
 - **~Mon 30 Nov (D-3):** Matthijs removes the DS records at Spaceship (registrar),
-  following the exact clicks I send beforehand. Wait at least 48 h (DS TTL 86400)
+  following those clicks. Wait at least 48 h (DS TTL 86400)
   and confirm resolvers no longer return AD for the zone.
 - **~Wed 2 Dec (D-1):**
   - Add the zone to Cloudflare (pending, not active). Delete anything Cloudflare
@@ -106,7 +107,8 @@ the website switch independent of the launch.
     the MX records), Email Address Obfuscation, Rocket Loader, Web Analytics/RUM,
     Bot Fight Mode, Auto Minify, and any other HTML-rewriting feature. Managed
     robots.txt: OFF as soon as the zone exists (the site ships its own robots.txt;
-    `tools/check_live.py` checks its bytes).
+    `tools/check_live.py` checks its bytes). Network Error Logging: OFF if the
+    plan allows it (section 6).
   - Lower the Spaceship TTLs of 1800 to 300.
   - `pages-frozen` created, protected, GitHub Pages switched to it, bytes verified
     (see the cutover checklist).
@@ -142,7 +144,26 @@ the website switch independent of the launch.
   domain's cache, then `tools/check_live.py` on the deployment URL and on the
   domain (cutover checklist, standing rule).
 
-## 6. `tools/dns_diff.py`
+## 6. Cloudflare Network Error Logging (NEL / Report-To)
+Cloudflare adds `NEL` and `Report-To` headers to every response (seen on the
+previews, 2026-11-17): browsers are asked to report connection failures to
+Cloudflare. They do not come from `_headers`.
+- Decision (Chat, 2026-11-18): once the zone exists, turn Network Error Logging off
+  in the zone's network settings if the plan allows it. `tools/check_live.py`
+  reports whether the headers are present.
+- If Cloudflare does not allow it, the Privacy hosting paragraph already covers it
+  ("processes your IP address and basic browser information to deliver the pages
+  and protect the site").
+- **Outcome:** _to record when the zone exists (setting available yes/no; headers
+  gone on receiptwhere.com yes/no; date)._
+
+## 7. Full-site preview
+Branch `launch-preview`: `site-astro` with `site.stage` = `launch`, preview only
+(Cloudflare preview deployments carry `X-Robots-Tag: noindex`; the `preview` job
+checks it). For reviewing the launch site; never merged. Refreshed by merging
+`site-astro` into it.
+
+## 8. `tools/dns_diff.py`
 Standard library only. Reads `tools/dns_records.tsv` (names, types, counts; no
 values), queries two given nameservers directly, and prints per record set: match
 yes/no, the record count on each side, and whether it is DNS-only. Values are
