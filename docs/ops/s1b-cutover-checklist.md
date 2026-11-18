@@ -21,6 +21,8 @@ Cloudflare Pages serves an apex custom domain only from a full-setup Cloudflare 
       (DS TTL 86400 s); confirm resolvers no longer return AD for the zone.
 - [ ] Cloudflare zone settings, before activation:
   - [ ] Email Routing: OFF (it would replace the MX records)
+  - [ ] Managed robots.txt: OFF (as soon as the zone exists). The site ships its own
+        robots.txt; `tools/check_live.py` keeps verifying its bytes.
   - [ ] Email Address Obfuscation: OFF (would rewrite mailto links and inject a script)
   - [ ] Rocket Loader: OFF
   - [ ] Web Analytics / RUM auto-injection: OFF
@@ -85,6 +87,16 @@ Cloudflare Pages serves an apex custom domain only from a full-setup Cloudflare 
 - [ ] A `main` deploy after `production` environment approval succeeds and
       `tools/check_live.py https://receiptwhere.com` passes.
 - [ ] The required status check `checks` still reports on PRs into `main`.
+
+## Any production deploy that removes paths (standing rule)
+Cloudflare's edge cache can keep serving a removed page from an earlier deployment
+(seen on the `site-astro` branch alias, 2026-11-17: `/features/` still served about
+5.7 h after a deploy that removed it).
+- [ ] Purge the receiptwhere.com cache in Cloudflare (Caching → Purge Everything).
+- [ ] Run `tools/check_live.py` on the deployment URL **and** on
+      https://receiptwhere.com; both pass.
+- Applies to, among others: a rollback from the launch build to the pre-launch
+  build, and redeploying a previous deployment.
 
 ## Rollback (during the 7-day period only)
 Point the nameservers back to Spaceship. Its records are untouched and still point

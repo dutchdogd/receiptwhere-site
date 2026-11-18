@@ -104,7 +104,9 @@ the website switch independent of the launch.
     export, every one DNS-only.
   - Zone settings before activation, all OFF: **Email Routing** (it would replace
     the MX records), Email Address Obfuscation, Rocket Loader, Web Analytics/RUM,
-    Bot Fight Mode, Auto Minify, and any other HTML-rewriting feature.
+    Bot Fight Mode, Auto Minify, and any other HTML-rewriting feature. Managed
+    robots.txt: OFF as soon as the zone exists (the site ships its own robots.txt;
+    `tools/check_live.py` checks its bytes).
   - Lower the Spaceship TTLs of 1800 to 300.
   - `pages-frozen` created, protected, GitHub Pages switched to it, bytes verified
     (see the cutover checklist).
@@ -136,6 +138,9 @@ the website switch independent of the launch.
 ## 5. Rollback
 - Switch 1: nameservers back to Spaceship (its records untouched throughout).
 - Switch 2: restore the 4 A records and the www CNAME in Cloudflare.
+- Any production deploy that removes paths (e.g. launch → pre-launch): purge the
+  domain's cache, then `tools/check_live.py` on the deployment URL and on the
+  domain (cutover checklist, standing rule).
 
 ## 6. `tools/dns_diff.py`
 Standard library only. Reads `tools/dns_records.tsv` (names, types, counts; no
