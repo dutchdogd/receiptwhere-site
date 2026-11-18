@@ -22,6 +22,15 @@ const steps = [
   { label: "Step 2", title: "ReceiptWhere reads and checks", text: "Store, date, total, tax and payment method are read automatically, then checked against the receipt's own numbers. Anything uncertain lands in \"To check\"." },
   { label: "Step 3", title: "Find, total, export", text: "Search any receipt, see totals by month, store, card or project, and export a clean file for your tax preparer or bookkeeper." },
 ];
+// "What you get": synthetic example rows, as an exported CSV would hold them.
+const sheetCols = [
+  { label: "date" }, { label: "merchant" }, { label: "total", num: true }, { label: "tax", num: true },
+  { label: "payment" }, { label: "business/personal" }, { label: "status" },
+];
+const sheetRows = [
+  ["2026-11-06", "Hardware Co.", "31.41", "2.96", "Visa ••4242", "business", "confirmed"],
+  ["2026-11-07", "Corner Market", "18.20", "0.00", "Debit ••1180", "personal", "checked"],
+];
 const checks = [
   "Total checked against subtotal plus tax, and against the payment",
   "Refunds recognised and shown as money back",
@@ -91,6 +100,32 @@ const who = [
           <li class="card card-white"><span class="mono-label">{s.label}</span><h3>{s.title}</h3><p>{s.text}</p></li>
         ))}
       </ol>
+    </div>
+  </section>
+
+  <section class="section section-navy output" aria-labelledby="output">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow eyebrow-amber">What you get</p>
+        <h2 id="output">From receipt to record</h2>
+        <p class="lead">Every receipt becomes one clean, checked row: the date, the store, the total, the tax on its own, how you paid, business or personal, and whether it was checked or confirmed by you. Export the lot as a CSV for your bookkeeper, your tax preparer or your accounting software.</p>
+      </div>
+      <div class="sheet" role="region" aria-labelledby="sheet-caption" tabindex="0">
+        <table>
+          <caption id="sheet-caption">Example of exported records</caption>
+          <thead>
+            <tr>
+              {sheetCols.map((c) => (<th scope="col" class={c.num ? "num" : undefined}>{c.label}</th>))}
+            </tr>
+          </thead>
+          <tbody>
+            {sheetRows.map((r) => (
+              <tr>{r.map((v, i) => (<td class={sheetCols[i].num ? "num" : undefined}>{v}</td>))}</tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="sheet-next">Coming next: ready-made formats for QuickBooks and Xero, and journal entries posted for you.</p>
     </div>
   </section>
 

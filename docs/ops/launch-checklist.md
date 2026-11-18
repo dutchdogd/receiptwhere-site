@@ -18,6 +18,14 @@ Release order (Matthijs, 2026-11-17):
 - [ ] Launch facts kept from S2 (#1, #5, #8): paid plan and prices, Google Play
       billing, CSV export on the paid plan, 50 / 300 receipts a month: confirm each
       matches the launch Terms and the app.
+- [ ] **CSV export vs the API's CSV contract (§7f), as released:** confirm the column
+      names and the status wording the site shows (Home "From receipt to record"
+      table: date, merchant, total, tax, payment, business/personal, status; status
+      values "checked" / "confirmed"; Features "Accounting-ready export"; Pricing
+      "Accounting-ready CSV export"). List every mismatch; do not change copy
+      without a decision.
+- [ ] Home "Coming next" line under the table (QuickBooks and Xero formats, journal
+      entries posted for you): still accurate as a "coming next" statement at launch.
 - [ ] Business / Personal (v1.0, Features → Organise and use): confirm the app ships
       it as described (one-tap mark, set before scanning, totals and exports split).
 - [ ] Google Play: replace "Coming soon to Google Play" with the real Play link.
