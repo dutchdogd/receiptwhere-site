@@ -152,6 +152,25 @@ a:hover, a:focus-visible { color: var(--link-hover); }
   background: var(--success-bg); color: var(--success); border-radius: 8px; padding: 10px 12px;
 }
 
+/* "What you get": exported records as a spreadsheet (synthetic example) */
+.output .lead { color: var(--muted); }
+.section .wrap > .sheet { margin-top: 32px; }
+.sheet {
+  max-width: 100%; overflow-x: auto; background: var(--white); color: var(--text);
+  border-radius: 6px; padding: 18px 18px 14px;
+}
+.sheet table { border-collapse: collapse; font-family: var(--mono); font-size: 14px; white-space: nowrap; min-width: 100%; }
+.sheet caption {
+  caption-side: top; text-align: left; font-family: var(--font); font-size: 14px;
+  color: var(--body); padding-bottom: 10px;
+}
+.sheet th, .sheet td { border: 1px solid var(--muted); padding: 7px 12px; text-align: left; }
+.sheet th { background: var(--panel); font-weight: 500; }
+.sheet .num { text-align: right; }
+.sheet:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+.section .wrap > .sheet-next { margin-top: 16px; }
+.sheet-next { font-size: 16px; color: var(--muted); }
+
 /* Steps */
 .steps { counter-reset: none; }
 .steps .card { gap: 10px; }
