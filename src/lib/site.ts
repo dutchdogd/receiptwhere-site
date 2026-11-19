@@ -10,7 +10,7 @@ export const organization = {
   url: `${SITE}/`,
   logo: { "@type": "ImageObject", url: `${SITE}/icons/icon-512.png`, width: 512, height: 512 },
   email: "receipt@receiptwhere.com",
-  address: { "@type": "PostalAddress", addressLocality: "Burien", addressRegion: "WA", addressCountry: "US" },
+  address: { "@type": "PostalAddress", addressLocality: "Seattle", addressRegion: "WA", addressCountry: "US" },
   founder: { "@type": "Person", name: "Matthijs van Leeuwen" },
   brand: { "@type": "Brand", name: "ReceiptWhere" },
 };
