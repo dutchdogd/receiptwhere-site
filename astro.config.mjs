@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
+import pruneAssets from "./src/integrations/prune-assets.mjs";
 import stage from "./src/integrations/stage.mjs";
 
 // Static output only. public/ is copied into dist/ byte for byte; that is how the
@@ -18,9 +19,10 @@ export default defineConfig({
     // styled from site.css instead.
     syntaxHighlight: false,
   },
+  // pruneAssets() deletes dist/_astro files nothing refers to (e.g. a draft's cover).
   // stage() must stay last: in a pre-launch build it cuts dist/ down to the files
   // live today (see src/integrations/stage.mjs and site.stage).
-  integrations: [mdx(), stage()],
+  integrations: [mdx(), pruneAssets(), stage()],
   // No dev toolbar, no telemetry-style extras in the built site.
   devToolbar: { enabled: false },
 });

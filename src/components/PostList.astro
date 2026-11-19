@@ -1,7 +1,10 @@
 ---
+import { Picture } from "astro:assets";
 import { formatDate, readingMinutes, tagSlug, type Post } from "../lib/blog";
 interface Props { posts: Post[] }
 const { posts } = Astro.props;
+// The list thumbnail repeats the post's cover next to its linked title, so it is
+// decorative here (alt=""); the post page carries the cover with its description.
 ---
 {posts.length === 0 ? (
   <p class="lead">No posts yet.</p>
@@ -9,6 +12,11 @@ const { posts } = Astro.props;
   <ol class="post-list">
     {posts.map((p) => (
       <li class="post-item">
+        {p.data.cover && (
+          <Picture class="post-thumb" src={p.data.cover} alt="" widths={[400, 760, 1140]} width={760} height={428}
+            fit="cover" position="center" sizes="(max-width: 800px) 100vw, 760px"
+            formats={["webp"]} fallbackFormat="jpg" loading="lazy" />
+        )}
         <p class="post-meta">
           <time datetime={p.data.date.toISOString()}>{formatDate(p.data.date)}</time>
           <span aria-hidden="true">·</span>

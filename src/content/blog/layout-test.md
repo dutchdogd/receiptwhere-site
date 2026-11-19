@@ -4,6 +4,8 @@ description: "A placeholder post with synthetic content, to check the blog layou
 date: 2026-11-12
 author: "Matthijs van Leeuwen"
 tags: ["Layout test", "Receipts"]
+cover: ./images/layout-test.png
+coverAlt: "Illustration of a receipt with its total highlighted and a green check mark, next to an amber map pin."
 draft: true
 ---
 

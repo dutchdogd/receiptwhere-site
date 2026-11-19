@@ -1,9 +1,10 @@
 ---
 // One blog post: date, author, reading time, tags, previous/next.
 import type { GetStaticPaths } from "astro";
+import { Picture } from "astro:assets";
 import { render } from "astro:content";
 import Base from "../../layouts/Base.astro";
-import { formatDate, getPosts, readingMinutes, tagSlug, type Post } from "../../lib/blog";
+import { coverCrops, formatDate, getPosts, readingMinutes, tagSlug, type Post } from "../../lib/blog";
 import { organization, SITE } from "../../lib/site";
 
 export const getStaticPaths = (async () => {
@@ -20,6 +21,13 @@ const { Content } = await render(post);
 const d = post.data;
 const minutes = readingMinutes(post.body);
 const url = `${SITE}/blog/${post.id}/`;
+// With a cover: the social card and the structured-data images are crops of it.
+// Without one (drafts only): the generated title card at /blog/<slug>/og.png.
+const crops = await coverCrops(post);
+const ogImage = crops?.og ?? `/blog/${post.id}/og.png`;
+const image = crops
+  ? crops.schema.map((c) => ({ "@type": "ImageObject", url: new URL(c.src, SITE).href, width: c.width, height: c.height }))
+  : { "@type": "ImageObject", url: `${url}og.png`, width: 1200, height: 630 };
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -32,7 +40,7 @@ const jsonLd = {
   dateModified: (d.updated ?? d.date).toISOString(),
   author: { "@type": "Person", name: d.author },
   publisher: organization,
-  image: { "@type": "ImageObject", url: `${url}og.png`, width: 1200, height: 630 },
+  image,
   keywords: d.tags.join(", ") || undefined,
   wordCount: post.body?.split(/\s+/).filter(Boolean).length,
   inLanguage: "en-US",
@@ -40,7 +48,7 @@ const jsonLd = {
 };
 ---
 <Base title={`${d.title}: ReceiptWhere`} description={d.description} path={`/blog/${post.id}/`} current="blog"
-  ogImage={`/blog/${post.id}/og.png`} ogType="article" published={d.date} modified={d.updated} tags={d.tags} noindex={d.draft}
+  ogImage={ogImage} ogImageAlt={d.cover ? d.coverAlt : undefined} ogType="article" published={d.date} modified={d.updated} tags={d.tags} noindex={d.draft}
   jsonLd={jsonLd}>
   <article class="post">
     <header class="post-hero">
@@ -59,6 +67,15 @@ const jsonLd = {
         </p>
       </div>
     </header>
+    {d.cover && (
+      <figure class="post-cover">
+        <div class="post-col">
+          <Picture src={d.cover} alt={d.coverAlt ?? ""} widths={[480, 720, 1080, 1440]}
+            sizes="(max-width: 760px) 100vw, 720px" formats={["webp"]} fallbackFormat="jpg"
+            loading="eager" fetchpriority="high" />
+        </div>
+      </figure>
+    )}
     <div class="post-body">
       <div class="post-col prose">
         <Content />

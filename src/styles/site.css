@@ -299,6 +299,11 @@ a:hover, a:focus-visible { color: var(--link-hover); }
   background: var(--highlight); color: var(--link-hover); padding: 4px 10px; border-radius: 6px;
 }
 .post-body { padding: var(--section-y-tight) var(--gutter) 0; }
+/* Cover image (required for published posts): under the header, then the text. */
+.post-cover { margin: 0; padding: 40px var(--gutter) 0; }
+.post-cover img { display: block; width: 100%; height: auto; border-radius: 12px; background: var(--placeholder); }
+.post-cover + .post-body { padding-top: 40px; }
+.post-thumb { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; background: var(--placeholder); }
 .post-foot { padding: 40px var(--gutter) var(--section-y); }
 .post-foot .post-col { display: flex; flex-direction: column; gap: 32px; border-top: 1px solid var(--muted); padding-top: 32px; }
 
