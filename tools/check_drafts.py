@@ -2,8 +2,8 @@
 """Draft check: a build without SITE_DRAFTS=1 contains no draft post.
 
 Reads the frontmatter of every post in src/content/blog/ for `draft: true`, then
-checks that dist/ has no page, OG image or RSS item for those slugs, and no page
-carrying the draft marker. Only meaningful for production-style builds; with
+checks that dist/ has no page, OG image, cover image or RSS item for those slugs,
+and no page carrying the draft marker. Only meaningful for production-style builds; with
 SITE_DRAFTS=1 (previews) it just reports what it would have checked.
 
 Standard library only.
@@ -29,6 +29,18 @@ def drafts() -> list:
     return out
 
 
+def draft_covers() -> list:
+    """File stems of the cover images of draft posts (cover: ./images/<stem>.<ext>)."""
+    out = []
+    for f in sorted(BLOG.glob("**/*.md*")):
+        m = re.match(r"^---\s*\n(.*?)\n---", f.read_text(encoding="utf-8"), re.S)
+        if m and re.search(r"^draft:\s*true\s*$", m.group(1), re.M):
+            c = re.search(r"^cover:\s*[\"']?([^\"'\n]+?)[\"']?\s*$", m.group(1), re.M)
+            if c:
+                out.append(pathlib.PurePosixPath(c.group(1)).stem)
+    return out
+
+
 def main() -> int:
     slugs = drafts()
     # The sitemap never lists a draft, in any build.
@@ -48,6 +60,12 @@ def main() -> int:
         ok = not hits and not in_rss and not linked
         failed |= not ok
         print(f"{'yes' if ok else 'NO '}  draft '{slug}' not in the build")
+    # Astro names processed images <stem>.<hash>.<ext> under dist/_astro/.
+    for stem in draft_covers():
+        leaked = [p for p in (DIST / "_astro").glob(f"{stem}.*")] if (DIST / "_astro").is_dir() else []
+        failed |= bool(leaked)
+        print(f"{'yes' if not leaked else 'NO '}  draft cover '{stem}' not in the build"
+              + "".join(f"\n       {p.relative_to(DIST)}" for p in leaked))
     marked = [p for p in DIST.rglob("*.html") if "Draft: shown on previews only" in p.read_text("utf-8")]
     failed |= bool(marked)
     print(f"{'yes' if not marked else 'NO '}  no page carries the draft marker"

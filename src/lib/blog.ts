@@ -1,3 +1,4 @@
+import { getImage } from "astro:assets";
 import { getCollection, type CollectionEntry } from "astro:content";
 
 export type Post = CollectionEntry<"blog">;
@@ -56,4 +57,31 @@ export function pages(posts: Post[]): Post[][] {
 
 export function pageUrl(n: number): string {
   return n <= 1 ? "/blog/" : `/blog/page/${n}/`;
+}
+
+/** Google asks for large images at least 1200 px wide; 675 px tall keeps the 16:9
+    crop and the 1200x630 social card at full size. */
+export const COVER_MIN_WIDTH = 1200;
+export const COVER_MIN_HEIGHT = 675;
+
+/** Crops of a post's cover for sharing and structured data, as site-relative URLs.
+    og: the 1200x630 social card. schema: 16:9, 4:3 and 1:1, the aspect ratios
+    Google asks for in Article structured data. Centre crops, JPEG. */
+export async function coverCrops(post: Post) {
+  const cover = post.data.cover;
+  if (!cover) return undefined;
+  if (cover.width < COVER_MIN_WIDTH || cover.height < COVER_MIN_HEIGHT) {
+    throw new Error(`blog/${post.id}: cover is ${cover.width}x${cover.height} px; ` +
+      `it must be at least ${COVER_MIN_WIDTH}x${COVER_MIN_HEIGHT} px`);
+  }
+  // Images are never upscaled: each crop is the largest one of that aspect ratio,
+  // up to 1200 px wide, that fits inside the cover.
+  const crop = async (rw: number, rh: number) => {
+    const width = Math.min(1200, cover.width, Math.floor((cover.height * rw) / rh));
+    const height = Math.round((width * rh) / rw);
+    const img = await getImage({ src: cover, width, height, fit: "cover", position: "center", format: "jpg", quality: 82 });
+    return { src: img.src, width, height };
+  };
+  const [og, w16, w4, w1] = await Promise.all([crop(40, 21), crop(16, 9), crop(4, 3), crop(1, 1)]);
+  return { og: og.src, ogWidth: og.width, ogHeight: og.height, schema: [w16, w4, w1] };
 }
