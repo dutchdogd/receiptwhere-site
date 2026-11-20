@@ -81,6 +81,9 @@ jobs:
       - name: Build matches site.stage (pre-launch builds hold only today's files)
         run: python tools/check_stage.py
 
+      - name: No preview hostname in the build; internal URLs root-relative
+        run: python tools/check_urls.py
+
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: dist
