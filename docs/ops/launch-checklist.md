@@ -26,6 +26,12 @@ Release order (Matthijs, 2026-11-17):
       without a decision.
 - [ ] Home "Coming next" line under the table (QuickBooks and Xero formats, journal
       entries posted for you): still accurate as a "coming next" statement at launch.
+- [ ] **Document types vs the release replay:** the five categories the site names
+      (Home hero line; Features → Capture → "What it reads"; Home step 1): store
+      receipts, online orders, bills (utilities), subscriptions and apps, invoices.
+      For each, confirm the release replay has documents of that type reading
+      correctly; list any category that doesn't (do not change copy without a
+      decision). No bill due dates or reminders anywhere on the site (v1.1).
 - [ ] Business / Personal (v1.0, Features → Organise and use): confirm the app ships
       it as described (one-tap mark, set before scanning, totals and exports split).
 - [ ] Google Play: replace "Coming soon to Google Play" with the real Play link.
