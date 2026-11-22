@@ -24,6 +24,10 @@ const blog = defineCollection({
         cover: image().optional(),
         // What the cover shows, for screen readers and search engines.
         coverAlt: z.string().min(1).max(200).optional(),
+        // The post's body already opens with the same picture (its Markdown image line):
+        // the post page then shows it once, from the body. Lists, the social card and
+        // the structured data still use the cover.
+        coverInBody: z.boolean().default(false),
         // Drafts are built only for previews (SITE_DRAFTS=1), never for production.
         draft: z.boolean().default(false),
       })
