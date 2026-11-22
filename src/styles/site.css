@@ -340,7 +340,9 @@ a:hover, a:focus-visible { color: var(--link-hover); }
 .prose th, .prose td { overflow-wrap: anywhere; }
 .prose th, .prose td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--muted); }
 .prose th { font-weight: 700; border-bottom: 2px solid var(--navy); }
-.prose td:last-child, .prose th:last-child { text-align: right; font-family: var(--mono); }
+/* Every column left-aligned in the body font (posts mix text and amount columns);
+   tabular figures keep amounts aligned digit for digit. */
+.prose table { font-variant-numeric: tabular-nums; }
 .prose img { height: auto; border-radius: 10px; }
 .prose hr { border: 0; border-top: 1px solid var(--muted); margin: 2em 0; }
 
