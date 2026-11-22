@@ -67,7 +67,7 @@ const jsonLd = {
         </p>
       </div>
     </header>
-    {d.cover && (
+    {d.cover && !d.coverInBody && (
       <figure class="post-cover">
         <div class="post-col">
           <Picture src={d.cover} alt={d.coverAlt ?? ""} widths={[480, 720, 1080, 1440]}

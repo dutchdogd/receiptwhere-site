@@ -33,3 +33,8 @@ Every published post needs one; the build stops without it.
   paper receipts next to a phone showing a checked total." Up to 200 characters.
 - **File:** JPEG for photos, PNG for illustrations. The site converts and resizes it;
   upload the original (up to a few MB).
+- **An SVG illustration** (2026-11-21): keep the `.svg` next to the post if the body
+  shows it (`![alt](./<slug>.svg)`), and give the cover as a PNG rendered from it at 2x
+  (`images/<slug>.png`, at least 1200 × 675 px). When the body opens with that same
+  picture, add `coverInBody: true`: the post page then shows it once, from the body;
+  lists, link previews and search engines still use the cover.
