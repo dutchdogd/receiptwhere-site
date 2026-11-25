@@ -241,6 +241,8 @@ a:hover, a:focus-visible { color: var(--link-hover); }
 .price .per, .plan .blurb { font-size: 16px; color: var(--body); }
 .plan ul { padding-left: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 16px; line-height: 1.5; }
 .plan .btn { margin-top: auto; }
+/* A feature announced for the plan but not in it yet: set apart from the bullets. */
+.plan-note { font-size: 15px; line-height: 1.5; color: var(--body); border-top: 1px solid var(--muted); padding-top: 12px; }
 .pill { font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 999px; }
 .pill-popular { background: var(--highlight); color: var(--link-hover); }
 .pill-soon { background: var(--info-bg); color: var(--info); }

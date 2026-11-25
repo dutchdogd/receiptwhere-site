@@ -14,13 +14,13 @@ const jsonLd = {
 
 const why = [
   { title: "The shoebox", text: "Paper fades, emails get buried, and the receipt you need is never the one on top. ReceiptWhere keeps every one in a single place, readable and searchable." },
-  { title: "Tax time", text: "Self-employed, side business, or just keeping records: hand your tax preparer one clean file instead of a bag of paper." },
+  { title: "Tax time", text: "Self-employed, side business, or just keeping records: keep every receipt checked and in one place, instead of a bag of paper." },
   { title: "Returns and warranties", text: "Find the receipt in seconds by store, amount or date, and show it at the counter." },
 ];
 const steps = [
   { label: "Step 1", title: "Capture", text: "Scan a paper receipt, import photos and PDFs of bills and invoices, share from any app, or forward email receipts and order confirmations to your own ReceiptWhere address." },
   { label: "Step 2", title: "ReceiptWhere reads and checks", text: "Store, date, total, tax and payment method are read automatically, then checked against the receipt's own numbers. Anything uncertain lands in \"To check\"." },
-  { label: "Step 3", title: "Find, total, export", text: "Search any receipt, see totals by month, store, card or project, and export an accounting-ready file for your bookkeeper or tax preparer." },
+  { label: "Step 3", title: "Find and total", text: "Search any receipt and see totals by month, store, card or project. An accounting-ready export for your bookkeeper or tax preparer is coming in January." },
 ];
 // "What you get": synthetic example rows, as an exported CSV would hold them.
 const sheetCols = [
@@ -39,7 +39,7 @@ const checks = [
   "Your original image is always kept, next to what was read",
 ];
 const who = [
-  { title: "Self-employed and freelancers", text: "Business and personal kept apart, in one clean file for your tax preparer." },
+  { title: "Self-employed and freelancers", text: "Business and personal kept apart, with totals for each." },
   { title: "Contractors and trades", text: "Material receipts per job, so nothing gets lost between the store and the invoice." },
   { title: "Households", text: "Warranties, returns and big purchases, always one search away." },
   { title: "Bookkeepers and tax preparers", text: "Clients who send you checked records instead of a shoebox. Tools for you are coming." },
@@ -109,11 +109,11 @@ const who = [
       <div class="section-head">
         <p class="eyebrow eyebrow-amber">What you get</p>
         <h2 id="output">From receipt to record</h2>
-        <p class="lead">Every receipt becomes one clean, checked row: the date, the store, the total, the tax on its own, how you paid, business or personal, and whether it was checked or confirmed by you. Export the lot as a CSV for your bookkeeper, your tax preparer or your accounting software.</p>
+        <p class="lead">Every receipt becomes one clean, checked row: the date, the store, the total, the tax on its own, how you paid, business or personal, and whether it was checked or confirmed by you. From January you can export the lot as a CSV for your bookkeeper, your tax preparer or your accounting software.</p>
       </div>
       <div class="sheet" role="region" aria-labelledby="sheet-caption" tabindex="0">
         <table>
-          <caption id="sheet-caption">Example of exported records</caption>
+          <caption id="sheet-caption">Example of your records</caption>
           <thead>
             <tr>
               {sheetCols.map((c) => (<th scope="col" class={c.num ? "num" : undefined}>{c.label}</th>))}
