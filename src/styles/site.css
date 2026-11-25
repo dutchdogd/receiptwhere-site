@@ -172,6 +172,9 @@ a:hover, a:focus-visible { color: var(--link-hover); }
 .section .wrap > .sheet-next { margin-top: 16px; }
 .sheet-next { font-size: 16px; color: var(--muted); }
 
+/* "Automatic, from receipt to journal entry": the closing line under the cards. */
+.section .wrap > .levels-note { margin-top: 32px; max-width: 720px; }
+
 /* Steps */
 .steps { counter-reset: none; }
 .steps .card { gap: 10px; }
