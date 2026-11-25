@@ -9,6 +9,14 @@ Release order (Matthijs, 2026-11-17):
    switch then, in a separate site release.
 
 ## A. Site launch with Android v1.0 (mid-December)
+- [ ] **BLOCKING before the Fri 11 Dec submission: launch Terms published.** Chat
+      drafts the §6 paid-plan edits as an edit table (week of 23 Nov); no Terms
+      edits on the site until that table arrives. Publication planned **Mon 7 Dec**,
+      together with the Cloudflare hosting paragraph (branch `legal-fonts-privacy`),
+      in one release with **one effective date** (the publish date) for both Terms
+      and Privacy. Through the protected-file process: verbatim check against the
+      approved table, `protected.sha256` updated with Chat's approval named in the
+      commit, `tools/check_live.py` on receiptwhere.com after deploy.
 - [ ] Rerun the copy conflict check of every page against the **launch** version of
       the Terms and Privacy; report each line that conflicts (do not change copy
       without a decision).
@@ -16,13 +24,16 @@ Release order (Matthijs, 2026-11-17):
       renewal." Keep it only if billing cancels the Google Play subscription on
       account deletion; otherwise remove it (needs Chat's OK on the wording).
 - [ ] Launch facts kept from S2 (#1, #5, #8): paid plan and prices, Google Play
-      billing, CSV export on the paid plan, 50 / 300 receipts a month: confirm each
-      matches the launch Terms and the app.
+      billing, 50 / 300 receipts a month: confirm each matches the launch Terms and
+      the app. **#5, CSV export: paid plan, January (not at launch)** (decision
+      2026-11-25): the site says "coming in January" everywhere and the paid card
+      lists no export bullet; confirm the launch Terms and the in-app plan
+      description don't offer export at launch either.
 - [ ] **CSV export vs the API's CSV contract (§7f), as released:** confirm the column
       names and the status wording the site shows (Home "From receipt to record"
       table: date, merchant, total, tax, payment, business/personal, status; status
       values "checked" / "confirmed"; Features "Accounting-ready export"; Pricing
-      "Accounting-ready CSV export"). List every mismatch; do not change copy
+      note "accounting-ready CSV export"). List every mismatch; do not change copy
       without a decision.
 - [ ] Home "Coming next" line under the table (QuickBooks and Xero formats, journal
       entries posted for you): still accurate as a "coming next" statement at launch.
@@ -33,7 +44,7 @@ Release order (Matthijs, 2026-11-17):
       correctly; list any category that doesn't (do not change copy without a
       decision). No bill due dates or reminders anywhere on the site (v1.1).
 - [ ] Business / Personal (v1.0, Features → Organise and use): confirm the app ships
-      it as described (one-tap mark, set before scanning, totals and exports split).
+      it as described (one-tap mark, set before scanning, totals split).
 - [ ] Google Play: replace "Coming soon to Google Play" with the real Play link.
 - [ ] Web app stays "coming": Features "On your computer — coming in January"; no
       Sign in link in the nav.
@@ -51,3 +62,14 @@ Release order (Matthijs, 2026-11-17):
       "— coming in January"; wording per Chat), and recheck every page for
       web-app wording.
 - [ ] Recheck the copy against the Terms and Privacy in force at that date.
+
+## C. CSV export ships (paid plan, January)
+Only once export is live in the app for paid users (wording per Chat):
+- [ ] Drop the "coming in January" export wording: Home step 3 ("Find and total";
+      "…is coming in January"), Home "From receipt to record" ("From January you
+      can export…"), Features "Accounting-ready export — coming in January",
+      Pricing note under the paid card ("Coming to the paid plan in January: …").
+- [ ] Pricing: put "Accounting-ready CSV export" back as a paid-plan bullet and
+      remove the note.
+- [ ] Recheck the columns and status wording against the CSV contract (§7f) as
+      shipped, and the Terms and Privacy in force at that date.
