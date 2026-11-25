@@ -43,7 +43,7 @@ const checks = [
 const levels = [
   { label: "Available now", title: "ReceiptWhere", text: "Scan, upload or forward. Every receipt is read, checked and stored, with business and personal kept apart." },
   { label: "Coming soon", title: "ReceiptWhere Match", text: "Upload your bank and card statements. Each charge is matched to its receipt automatically; anything missing on either side is flagged for you." },
-  { label: "Coming later", title: "ReceiptWhere Allocate", text: "Each matched line gets its account and split automatically, and becomes a journal entry for QuickBooks or Xero, backed by its receipt and its statement line." },
+  { label: "Coming later", title: "ReceiptWhere Allocate", text: "Each matched line gets its account and split automatically, and becomes a journal entry for QuickBooks, Xero, NetSuite or Business Central, backed by its receipt and its statement line." },
 ];
 const who = [
   { title: "Self-employed and freelancers", text: "Business and personal kept apart, with totals for each." },
@@ -192,6 +192,7 @@ const who = [
           <li class="card"><span class="mono-label">{s.label}</span><h3>{s.title}</h3><p>{s.text}</p></li>
         ))}
       </ol>
+      <p class="lead levels-note">ReceiptWhere doesn't replace your accounting software. It fills it, with entries you can trace back to the receipt.</p>
     </div>
   </section>
 
