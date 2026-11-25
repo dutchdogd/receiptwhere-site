@@ -38,6 +38,13 @@ const checks = [
   "A notification when a receipt needs a quick check",
   "Your original image is always kept, next to what was read",
 ];
+// "From receipt to journal entry": one product, two optional levels (Matthijs, 25 Nov).
+// Status labels as on Pricing; no dates.
+const levels = [
+  { label: "Available now", title: "ReceiptWhere", text: "Scan, upload or forward. Every receipt is read, checked and stored, with business and personal kept apart." },
+  { label: "Coming soon", title: "ReceiptWhere Match", text: "Upload your bank and card statements. Each charge is matched to its receipt automatically; anything missing on either side is flagged for you." },
+  { label: "Coming later", title: "ReceiptWhere Allocate", text: "Each matched line gets its account and split automatically, and becomes a journal entry for QuickBooks or Xero, backed by its receipt and its statement line." },
+];
 const who = [
   { title: "Self-employed and freelancers", text: "Business and personal kept apart, with totals for each." },
   { title: "Contractors and trades", text: "Material receipts per job, so nothing gets lost between the store and the invoice." },
@@ -126,7 +133,7 @@ const who = [
           </tbody>
         </table>
       </div>
-      <p class="sheet-next">Coming next: ready-made formats for QuickBooks and Xero, and journal entries posted for you.</p>
+      <p class="sheet-next">Coming next: ready-made formats for QuickBooks and Xero.</p>
     </div>
   </section>
 
@@ -171,6 +178,20 @@ const who = [
         <p><strong>Card and account numbers</strong> are cut to the last four digits in the text we store and search. Your original image stays unchanged, as your record.</p>
         <p><strong>Delete anytime:</strong> one receipt or your whole account, right in the app.</p>
       </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="levels">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="levels">Automatic, from receipt to journal entry</h2>
+        <p class="lead">ReceiptWhere starts with your receipts. Two optional levels take them all the way into your books automatically, checked at every step. You step in when something doesn't add up.</p>
+      </div>
+      <ol class="cards steps">
+        {levels.map((s) => (
+          <li class="card"><span class="mono-label">{s.label}</span><h3>{s.title}</h3><p>{s.text}</p></li>
+        ))}
+      </ol>
     </div>
   </section>
 
